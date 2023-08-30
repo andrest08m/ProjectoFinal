@@ -1,5 +1,6 @@
 package com.vuelos.vuelos.DTO;
 
+import com.vuelos.vuelos.Entity.Plane;
 import com.vuelos.vuelos.Enums.Airline;
 import com.vuelos.vuelos.Enums.FlightType;
 
@@ -7,7 +8,7 @@ import java.time.LocalDateTime;
 
 public class VueloDTO {
 
-    private Long code;
+    private String code;
     private String origin;
     private String destiny;
     private LocalDateTime departureDate;
@@ -16,12 +17,15 @@ public class VueloDTO {
     private int availableSeats;
     private FlightType type;
     private Airline airline;
+    private Plane plane;
 
     public VueloDTO() {
     }
 
-    public VueloDTO(Long code, String origin, String destiny, LocalDateTime departureDate,
-                    LocalDateTime arrivalDate, double price, int availableSeats, FlightType type, Airline airline) {
+    public VueloDTO(String code, String origin, String destiny, LocalDateTime departureDate,
+                    LocalDateTime arrivalDate, double price,
+                    int availableSeats, FlightType type,
+                    Airline airline, Plane plane) {
         this.code = code;
         this.origin = origin;
         this.destiny = destiny;
@@ -31,13 +35,14 @@ public class VueloDTO {
         this.availableSeats = availableSeats;
         this.type = type;
         this.airline = airline;
+        this.plane = plane;
     }
 
-    public Long getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Long code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -82,7 +87,10 @@ public class VueloDTO {
     }
 
     public int getAvailableSeats() {
-        return availableSeats;
+        if (plane != null) {
+            return plane.getAvailableSeats();
+        }
+        return 0;
     }
 
     public void setAvailableSeats(int availableSeats) {
@@ -103,5 +111,13 @@ public class VueloDTO {
 
     public void setAirline(Airline airline) {
         this.airline = airline;
+    }
+
+    public Plane getPlane() {
+        return plane;
+    }
+
+    public void setPlane(Plane plane) {
+        this.plane = plane;
     }
 }
