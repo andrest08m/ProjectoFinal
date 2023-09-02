@@ -8,19 +8,19 @@ public class ReservaDTO {
     private LocalDateTime reservation_day;
     private LocalDateTime reservation_time;
     private int id_customers;
-    private String clasS;
+    private String class_type;
     private int id_flight;
 
     public ReservaDTO() {
     }
 
     public ReservaDTO(int reservation_number, LocalDateTime reservation_day, LocalDateTime reservation_time,
-                      int id_customers, String clasS, int id_flight) {
+                      int id_customers, String class_type, int id_flight) {
         Reservation_number = reservation_number;
         this.reservation_day = reservation_day;
         this.reservation_time = reservation_time;
         this.id_customers = id_customers;
-        this.clasS = clasS;
+        this.class_type = class_type;
         this.id_flight = id_flight;
     }
 
@@ -56,12 +56,12 @@ public class ReservaDTO {
         this.id_customers = id_customers;
     }
 
-    public String getClasS() {
-        return clasS;
+    public String getClass_type() {
+        return class_type;
     }
 
-    public void setClasS(String clasS) {
-        this.clasS = clasS;
+    public void setClass_type(String clasS) {
+        this.class_type = clasS;
     }
 
     public int getId_flight() {
