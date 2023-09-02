@@ -12,7 +12,6 @@ public class Plane {
     private String id_plane;
     private String airplane_model;
     private int availableSeats;
-
     @OneToOne(mappedBy = "plane")
     private Vuelo flight;
 
