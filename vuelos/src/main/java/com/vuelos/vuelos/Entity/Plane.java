@@ -1,5 +1,7 @@
 package com.vuelos.vuelos.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -13,6 +15,7 @@ public class Plane {
     private String airplane_model;
     private int availableSeats;
     @OneToOne(mappedBy = "plane")
+    @JsonIgnore
     private Vuelo flight;
 
     public Plane() {

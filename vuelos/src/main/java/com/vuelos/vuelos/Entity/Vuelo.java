@@ -6,6 +6,7 @@ import com.vuelos.vuelos.Enums.FlightType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Entity
 @Table(name="Flight")
@@ -20,6 +21,7 @@ public class Vuelo {
     private String destiny;
     private LocalDateTime departureDate;
     private LocalDateTime arrivalDate;
+    private String plane_id;
     private int available_seats;
     private double price;
     @OneToOne
@@ -34,20 +36,32 @@ public class Vuelo {
     }
 
     public Vuelo(Long id_flight, String code, String origin, String destiny,
-                 LocalDateTime departureDate, LocalDateTime arrivalDate,
-                 int available_seats, double price, Plane plane,
-                 FlightType type, Airline airline) {
+                 LocalDateTime departureDate, LocalDateTime arrivalDate, String plane_id,
+                 int available_seats, double price, Plane plane, FlightType type, Airline airline) {
         this.id_flight = id_flight;
         this.code = code;
         this.origin = origin;
         this.destiny = destiny;
         this.departureDate = departureDate;
         this.arrivalDate = arrivalDate;
+        this.plane_id = plane_id;
         this.available_seats = available_seats;
         this.price = price;
         this.plane = plane;
         this.type = type;
         this.airline = airline;
+    }
+
+    public int getAvailableSeats() {
+        if(plane != null){
+            return this.plane.getAvailableSeats();
+        }
+
+        return 0;
+    }
+
+    public void setAvailable_seats(int available_seats) {
+        this.available_seats = available_seats;
     }
 
     public Long getId_flight() {
@@ -98,15 +112,12 @@ public class Vuelo {
         this.arrivalDate = arrivalDate;
     }
 
-    public int getAvailable_seats() {
-        if (plane != null) {
-            return plane.getAvailableSeats();
-        }
-        return 0;
+    public String getPlane_id() {
+        return plane_id;
     }
 
-    public void setAvailable_seats(int available_seats) {
-        this.available_seats = available_seats;
+    public void setPlane_id(String plane_id) {
+        this.plane_id = plane_id;
     }
 
     public double getPrice() {
