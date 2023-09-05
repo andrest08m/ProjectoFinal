@@ -1,55 +1,45 @@
-package com.vuelos.vuelos.Entity;
+package com.aeroapp.aeroapp.dto;
 
 
-import com.vuelos.vuelos.Enums.Airline;
-import com.vuelos.vuelos.Enums.FlightType;
+import com.aeroapp.aeroapp.Entity.Plane;
+import com.aeroapp.aeroapp.Enums.Airline;
+import com.aeroapp.aeroapp.Enums.FlightType;
 
-import javax.persistence.*;
+
 import java.time.LocalDateTime;
-import java.util.Optional;
 
-@Entity
-@Table(name="Flight")
-public class Vuelo {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, updatable = false)
-    private Long id_flight;
+public class VueloDTO {
+
     private String code;
     private String origin;
     private String destiny;
     private LocalDateTime departureDate;
     private LocalDateTime arrivalDate;
-    private String plane_id;
-    private int available_seats;
     private double price;
-    @OneToOne
-    @JoinColumn(name = "plane")
-    private Plane plane;
-    @Enumerated(EnumType.STRING)
+    private String plane_id;
+    private int availableSeats;
     private FlightType type;
-    @Enumerated(EnumType.STRING)
     private Airline airline;
+    private Plane plane;
 
-    public Vuelo() {
+    public VueloDTO() {
     }
 
-    public Vuelo(Long id_flight, String code, String origin, String destiny,
-                 LocalDateTime departureDate, LocalDateTime arrivalDate, String plane_id,
-                 int available_seats, double price, Plane plane, FlightType type, Airline airline) {
-        this.id_flight = id_flight;
+    public VueloDTO(String code, String origin, String destiny, LocalDateTime departureDate,
+                    LocalDateTime arrivalDate, double price, String plane_id,
+                    int availableSeats, FlightType type, Airline airline, Plane plane) {
         this.code = code;
         this.origin = origin;
         this.destiny = destiny;
         this.departureDate = departureDate;
         this.arrivalDate = arrivalDate;
-        this.plane_id = plane_id;
-        this.available_seats = available_seats;
         this.price = price;
-        this.plane = plane;
+        this.plane_id = plane_id;
+        this.availableSeats = availableSeats;
         this.type = type;
         this.airline = airline;
+        this.plane = plane;
     }
 
     public int getAvailableSeats() {
@@ -60,16 +50,8 @@ public class Vuelo {
         return 0;
     }
 
-    public void setAvailable_seats(int available_seats) {
-        this.available_seats = available_seats;
-    }
-
-    public Long getId_flight() {
-        return id_flight;
-    }
-
-    public void setId_flight(Long id_flight) {
-        this.id_flight = id_flight;
+    public void setAvailableSeats(int availableSeats) {
+        this.availableSeats = availableSeats;
     }
 
     public String getCode() {
@@ -112,14 +94,6 @@ public class Vuelo {
         this.arrivalDate = arrivalDate;
     }
 
-    public String getPlane_id() {
-        return plane_id;
-    }
-
-    public void setPlane_id(String plane_id) {
-        this.plane_id = plane_id;
-    }
-
     public double getPrice() {
         return price;
     }
@@ -128,12 +102,12 @@ public class Vuelo {
         this.price = price;
     }
 
-    public Plane getPlane() {
-        return plane;
+    public String getPlane_id() {
+        return plane_id;
     }
 
-    public void setPlane(Plane plane) {
-        this.plane = plane;
+    public void setPlane_id(String plane_id) {
+        this.plane_id = plane_id;
     }
 
     public FlightType getType() {
@@ -150,5 +124,13 @@ public class Vuelo {
 
     public void setAirline(Airline airline) {
         this.airline = airline;
+    }
+
+    public Plane getPlane() {
+        return plane;
+    }
+
+    public void setPlane(Plane plane) {
+        this.plane = plane;
     }
 }

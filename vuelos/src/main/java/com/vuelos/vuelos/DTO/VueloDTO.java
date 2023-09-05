@@ -5,6 +5,7 @@ import com.vuelos.vuelos.Enums.Airline;
 import com.vuelos.vuelos.Enums.FlightType;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 public class VueloDTO {
 
@@ -14,6 +15,7 @@ public class VueloDTO {
     private LocalDateTime departureDate;
     private LocalDateTime arrivalDate;
     private double price;
+    private String plane_id;
     private int availableSeats;
     private FlightType type;
     private Airline airline;
@@ -23,19 +25,31 @@ public class VueloDTO {
     }
 
     public VueloDTO(String code, String origin, String destiny, LocalDateTime departureDate,
-                    LocalDateTime arrivalDate, double price,
-                    int availableSeats, FlightType type,
-                    Airline airline, Plane plane) {
+                    LocalDateTime arrivalDate, double price, String plane_id,
+                    int availableSeats, FlightType type, Airline airline, Plane plane) {
         this.code = code;
         this.origin = origin;
         this.destiny = destiny;
         this.departureDate = departureDate;
         this.arrivalDate = arrivalDate;
         this.price = price;
+        this.plane_id = plane_id;
         this.availableSeats = availableSeats;
         this.type = type;
         this.airline = airline;
         this.plane = plane;
+    }
+
+    public int getAvailableSeats() {
+        if(plane != null){
+            return this.plane.getAvailableSeats();
+        }
+
+        return 0;
+    }
+
+    public void setAvailableSeats(int availableSeats) {
+        this.availableSeats = availableSeats;
     }
 
     public String getCode() {
@@ -86,15 +100,12 @@ public class VueloDTO {
         this.price = price;
     }
 
-    public int getAvailableSeats() {
-        if (plane != null) {
-            return plane.getAvailableSeats();
-        }
-        return 0;
+    public String getPlane_id() {
+        return plane_id;
     }
 
-    public void setAvailableSeats(int availableSeats) {
-        this.availableSeats = availableSeats;
+    public void setPlane_id(String plane_id) {
+        this.plane_id = plane_id;
     }
 
     public FlightType getType() {

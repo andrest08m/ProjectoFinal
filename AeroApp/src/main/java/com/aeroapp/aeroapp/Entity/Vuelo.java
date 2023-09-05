@@ -1,17 +1,18 @@
-package com.vuelos.vuelos.Entity;
+package com.aeroapp.aeroapp.Entity;
 
 
-import com.vuelos.vuelos.Enums.Airline;
-import com.vuelos.vuelos.Enums.FlightType;
+
+
+import com.aeroapp.aeroapp.Enums.Airline;
+import com.aeroapp.aeroapp.Enums.FlightType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Optional;
+
 
 @Entity
 @Table(name="Flight")
 public class Vuelo {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)

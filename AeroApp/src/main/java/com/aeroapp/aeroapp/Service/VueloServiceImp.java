@@ -1,10 +1,13 @@
-package com.vuelos.vuelos.Service;
+package com.aeroapp.aeroapp.Service;
 
-import com.vuelos.vuelos.DTO.VueloDTO;
-import com.vuelos.vuelos.Entity.Plane;
-import com.vuelos.vuelos.Entity.Vuelo;
-import com.vuelos.vuelos.Repository.PlaneRepository;
-import com.vuelos.vuelos.Repository.VueloRepository;
+
+import com.aeroapp.aeroapp.Entity.Plane;
+import com.aeroapp.aeroapp.Entity.Vuelo;
+import com.aeroapp.aeroapp.Repository.PlaneRepository;
+import com.aeroapp.aeroapp.Repository.VueloRepository;
+import com.aeroapp.aeroapp.dto.VueloDTO;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
