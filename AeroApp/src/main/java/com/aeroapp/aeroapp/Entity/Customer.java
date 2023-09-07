@@ -4,8 +4,8 @@ package com.aeroapp.aeroapp.Entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Customer")
-public class Cliente {
+@Table(name = "customer")
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "customer_id")
@@ -20,10 +20,10 @@ public class Cliente {
     private  Reserva reserva;
 
 
-    public Cliente() {
+    public Customer() {
     }
 
-    public Cliente(int id_customer, String name, String last_name, Long cell_phone, String gender, Reserva reserva) {
+    public Customer(int id_customer, String name, String last_name, Long cell_phone, String gender, Reserva reserva) {
         this.id_customer = id_customer;
         this.name = name;
         this.last_name = last_name;
