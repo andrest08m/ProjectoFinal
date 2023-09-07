@@ -8,6 +8,9 @@ import com.aeroapp.aeroapp.Enums.FlightType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -28,6 +31,8 @@ public class Vuelo {
     @OneToOne
     @JoinColumn(name = "plane")
     private Plane plane;
+    @OneToMany(mappedBy = "flight_code")
+    private Set<Reserva> reservas;
     @Enumerated(EnumType.STRING)
     private FlightType type;
     @Enumerated(EnumType.STRING)
@@ -38,7 +43,8 @@ public class Vuelo {
 
     public Vuelo(Long id_flight, String code, String origin, String destiny,
                  LocalDateTime departureDate, LocalDateTime arrivalDate, String plane_id,
-                 int available_seats, double price, Plane plane, FlightType type, Airline airline) {
+                 int available_seats, double price, Plane plane, Set<Reserva> reservas,
+                 FlightType type, Airline airline) {
         this.id_flight = id_flight;
         this.code = code;
         this.origin = origin;
@@ -49,13 +55,16 @@ public class Vuelo {
         this.available_seats = available_seats;
         this.price = price;
         this.plane = plane;
+        this.reservas = reservas;
         this.type = type;
         this.airline = airline;
     }
 
     public int getAvailableSeats() {
         if(plane != null){
-            return this.plane.getAvailableSeats();
+            List<Integer> clientsAboard =
+                    getCustomer().stream().map(fn -> fn.getClientes().size()).collect(Collectors.toList());
+            return this.plane.getAvailableSeats() - clientsAboard.size();
         }
 
         return 0;
@@ -121,6 +130,10 @@ public class Vuelo {
         this.plane_id = plane_id;
     }
 
+    public int getAvailable_seats() {
+        return available_seats;
+    }
+
     public double getPrice() {
         return price;
     }
@@ -135,6 +148,14 @@ public class Vuelo {
 
     public void setPlane(Plane plane) {
         this.plane = plane;
+    }
+
+    public Set<Reserva> getCustomer() {
+        return reservas;
+    }
+
+    public void setCustomer(Set<Reserva> reservas) {
+        this.reservas = reservas;
     }
 
     public FlightType getType() {

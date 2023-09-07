@@ -22,7 +22,7 @@ public class CustomerServicelmp implements CustomerService{
 
     public CustomerDTO createCustomerDTO(CustomerDTO customerDTO) {
         Customer customer = mapFromDTO(customerDTO);
-        Customer newCustomer = (Customer) customerRepository.save(customer);
+        Customer newCustomer = customerRepository.save(customer);
 
 
         return mapDTO(newCustomer);

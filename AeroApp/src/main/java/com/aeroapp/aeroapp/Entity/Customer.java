@@ -15,6 +15,8 @@ public class Customer {
     private Long cell_phone;
     private String gender;
 
+
+
     @ManyToOne
     @JoinColumn(name = "reserva_id", nullable = false)
     private  Reserva reserva;

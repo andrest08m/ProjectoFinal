@@ -1,27 +1,33 @@
 package com.aeroapp.aeroapp.dto;
 
+import com.aeroapp.aeroapp.Entity.Customer;
+import com.aeroapp.aeroapp.Entity.Vuelo;
+
 import java.time.LocalDateTime;
+import java.util.Set;
 
 public class ReservaDTO {
 
     private int Reservation_number;
     private LocalDateTime reservation_day;
     private LocalDateTime reservation_time;
-    private int id_customers;
     private String class_type;
-    private int id_flight;
+    private Vuelo flight_code;
+    private Set<Customer> clientes;
+
 
     public ReservaDTO() {
     }
 
-    public ReservaDTO(int reservation_number, LocalDateTime reservation_day, LocalDateTime reservation_time,
-                      int id_customers, String class_type, int id_flight) {
+    public ReservaDTO(int reservation_number,
+                      LocalDateTime reservation_day, LocalDateTime reservation_time,
+                      String class_type, Vuelo flight_code, Set<Customer> clientes) {
         Reservation_number = reservation_number;
         this.reservation_day = reservation_day;
         this.reservation_time = reservation_time;
-        this.id_customers = id_customers;
         this.class_type = class_type;
-        this.id_flight = id_flight;
+        this.flight_code = flight_code;
+        this.clientes = clientes;
     }
 
     public int getReservation_number() {
@@ -48,27 +54,27 @@ public class ReservaDTO {
         this.reservation_time = reservation_time;
     }
 
-    public int getId_customers() {
-        return id_customers;
-    }
-
-    public void setId_customers(int id_customers) {
-        this.id_customers = id_customers;
-    }
-
     public String getClass_type() {
         return class_type;
     }
 
-    public void setClass_type(String clasS) {
-        this.class_type = clasS;
+    public void setClass_type(String class_type) {
+        this.class_type = class_type;
     }
 
-    public int getId_flight() {
-        return id_flight;
+    public Vuelo getFlight_code() {
+        return flight_code;
     }
 
-    public void setId_flight(int id_flight) {
-        this.id_flight = id_flight;
+    public void setFlight_code(Vuelo flight_code) {
+        this.flight_code = flight_code;
+    }
+
+    public Set<Customer> getClientes() {
+        return clientes;
+    }
+
+    public void setClientes(Set<Customer> clientes) {
+        this.clientes = clientes;
     }
 }

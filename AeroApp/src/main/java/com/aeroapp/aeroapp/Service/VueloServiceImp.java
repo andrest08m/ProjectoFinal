@@ -41,6 +41,16 @@ public class VueloServiceImp implements VueloService{
     }
 
 
+    public VueloDTO findById(Long id){
+        Optional<Vuelo> vueloPorId = repository.findById(id);
+
+        if(vueloPorId.isPresent()){
+            return mapDTO(vueloPorId.get());
+        }else{
+            throw new RuntimeException();
+        }
+    }
+
     public List<Vuelo> getAllFlights(){
         return repository.findAll();
     }
