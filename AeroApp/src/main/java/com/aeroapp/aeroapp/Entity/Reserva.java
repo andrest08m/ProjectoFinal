@@ -20,13 +20,13 @@ public class Reserva {
     private int id_flight;
 
     @OneToMany(mappedBy = "reserva")
-    private List<Cliente> clientes;
+    private List<Customer> clientes;
 
     public Reserva() {
     }
 
     public Reserva(int reservation_number, LocalDateTime reservation_day, LocalDateTime reservation_time,
-                   int id_customers, String class_type, int id_flight, List<Cliente> clientes) {
+                   int id_customers, String class_type, int id_flight, List<Customer> clientes) {
         this.reservation_number = reservation_number;
         this.reservation_day = reservation_day;
         this.reservation_time = reservation_time;
@@ -84,11 +84,11 @@ public class Reserva {
         this.id_flight = id_flight;
     }
 
-    public List<Cliente> getClientes() {
+    public List<Customer> getClientes() {
         return clientes;
     }
 
-    public void setClientes(List<Cliente> clientes) {
+    public void setClientes(List<Customer> clientes) {
         this.clientes = clientes;
     }
 }
