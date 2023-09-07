@@ -5,6 +5,7 @@ package com.aeroapp.aeroapp.Entity;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "bookings")
@@ -15,24 +16,24 @@ public class Reserva {
     private int reservation_number;
     private LocalDateTime reservation_day;
     private LocalDateTime reservation_time;
-    private int id_customers;
     private String class_type;
-    private int id_flight;
+    @ManyToOne
+    @JoinColumn(name = "code")
+    private Vuelo flight_code;
 
     @OneToMany(mappedBy = "reserva")
-    private List<Customer> clientes;
+    private Set<Customer> clientes;
 
     public Reserva() {
     }
 
     public Reserva(int reservation_number, LocalDateTime reservation_day, LocalDateTime reservation_time,
-                   int id_customers, String class_type, int id_flight, List<Customer> clientes) {
+                    String class_type,Vuelo flight_code, Set<Customer> clientes) {
         this.reservation_number = reservation_number;
         this.reservation_day = reservation_day;
         this.reservation_time = reservation_time;
-        this.id_customers = id_customers;
         this.class_type = class_type;
-        this.id_flight = id_flight;
+        this.flight_code = flight_code;
         this.clientes = clientes;
     }
 
@@ -60,13 +61,7 @@ public class Reserva {
         this.reservation_time = reservation_time;
     }
 
-    public int getId_customers() {
-        return id_customers;
-    }
 
-    public void setId_customers(int id_customers) {
-        this.id_customers = id_customers;
-    }
 
     public String getClass_type() {
         return class_type;
@@ -76,19 +71,21 @@ public class Reserva {
         this.class_type = class_type;
     }
 
-    public int getId_flight() {
-        return id_flight;
-    }
 
-    public void setId_flight(int id_flight) {
-        this.id_flight = id_flight;
-    }
 
-    public List<Customer> getClientes() {
+    public Set<Customer> getClientes() {
         return clientes;
     }
 
-    public void setClientes(List<Customer> clientes) {
+    public void setClientes(Set<Customer> clientes) {
         this.clientes = clientes;
+    }
+
+    public Vuelo getFlight_code() {
+        return flight_code;
+    }
+
+    public void setFlight_code(Vuelo flight_code) {
+        this.flight_code = flight_code;
     }
 }

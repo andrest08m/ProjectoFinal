@@ -31,6 +31,12 @@ public class VueloController {
     public List<Vuelo> getAllFlights(){
         return this.vueloServiceImp.getAllFlights();
     }
+
+    @GetMapping("{id}")
+    public VueloDTO getFlightById(@PathVariable(name = "id") Long id){
+        return vueloServiceImp.findById(id);
+    }
+
     @PostMapping()
     public ResponseEntity<?> createFlight(@RequestBody VueloDTO vuelo){
         try{

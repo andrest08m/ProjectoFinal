@@ -1,12 +1,17 @@
 package com.aeroapp.aeroapp.dto;
 
 
+import com.aeroapp.aeroapp.Entity.Customer;
 import com.aeroapp.aeroapp.Entity.Plane;
+import com.aeroapp.aeroapp.Entity.Reserva;
 import com.aeroapp.aeroapp.Enums.Airline;
 import com.aeroapp.aeroapp.Enums.FlightType;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 public class VueloDTO {
@@ -22,13 +27,15 @@ public class VueloDTO {
     private FlightType type;
     private Airline airline;
     private Plane plane;
+    private Set<Reserva> clientes;
+
 
     public VueloDTO() {
     }
 
     public VueloDTO(String code, String origin, String destiny, LocalDateTime departureDate,
                     LocalDateTime arrivalDate, double price, String plane_id,
-                    int availableSeats, FlightType type, Airline airline, Plane plane) {
+                    int availableSeats, FlightType type, Airline airline, Plane plane, Set<Reserva> clientes) {
         this.code = code;
         this.origin = origin;
         this.destiny = destiny;
@@ -40,11 +47,14 @@ public class VueloDTO {
         this.type = type;
         this.airline = airline;
         this.plane = plane;
+        this.clientes = clientes;
     }
 
     public int getAvailableSeats() {
         if(plane != null){
-            return this.plane.getAvailableSeats();
+            List<Integer> clientsAboard =
+                    getClientes().stream().map(fn -> fn.getClientes().size()).collect(Collectors.toList());
+            return this.plane.getAvailableSeats() - clientsAboard.size();
         }
 
         return 0;
@@ -132,5 +142,13 @@ public class VueloDTO {
 
     public void setPlane(Plane plane) {
         this.plane = plane;
+    }
+
+    public Set<Reserva> getClientes() {
+        return clientes;
+    }
+
+    public void setClientes(Set<Reserva> clientes) {
+        this.clientes = clientes;
     }
 }
