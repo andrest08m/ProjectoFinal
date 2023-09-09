@@ -3,8 +3,8 @@ package com.aeroapp.aeroapp.Entity;
 
 
 
-import com.aeroapp.aeroapp.Enums.Airline;
-import com.aeroapp.aeroapp.Enums.FlightType;
+import com.aeroapp.aeroapp.utils.Airline;
+import com.aeroapp.aeroapp.utils.FlightType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

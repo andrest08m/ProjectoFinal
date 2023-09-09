@@ -9,6 +9,8 @@ import com.aeroapp.aeroapp.dto.VueloDTO;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +24,8 @@ public class VueloServiceImp implements VueloService{
     @Autowired
     private PlaneRepository pRepository;
 
-    public String createVueloDTO(VueloDTO vueloDTO) {
+
+    public ResponseEntity<?> createVueloDTO(VueloDTO vueloDTO) {
         Vuelo vuelo = mapFromDTO(vueloDTO);
 
         Optional<Plane> avionOptional = pRepository.findById(vuelo.getPlane_id());
@@ -31,13 +34,11 @@ public class VueloServiceImp implements VueloService{
             vuelo.setPlane(avion);
             vuelo.setAvailable_seats(avion.getAvailableSeats());
         }else{
-            return "Plane not available.";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Plane not found.");
         }
-
         Vuelo newVuelo = repository.save(vuelo);
 
-
-        return "Flight created successfully";
+        return ResponseEntity.status(HttpStatus.CREATED).body("Flight created.");
     }
 
 
@@ -53,6 +54,38 @@ public class VueloServiceImp implements VueloService{
 
     public List<Vuelo> getAllFlights(){
         return repository.findAll();
+    }
+
+    public ResponseEntity<?> updateFlight(VueloDTO vueloDTO, Long id){
+        Optional<Vuelo> vuelo = repository.findById(id);
+        if(vuelo.isEmpty()){
+            return ResponseEntity.status(404).body("Not found.");
+        }
+        Vuelo newInfoVuelo = vuelo.get();
+
+        newInfoVuelo.setCode(vueloDTO.getCode());
+        newInfoVuelo.setOrigin(vueloDTO.getOrigin());
+        newInfoVuelo.setDestiny(vueloDTO.getDestiny());
+        newInfoVuelo.setDepartureDate(vueloDTO.getDepartureDate());
+        newInfoVuelo.setPlane_id(vueloDTO.getPlane_id());
+        newInfoVuelo.setArrivalDate(vueloDTO.getArrivalDate());
+        newInfoVuelo.setAvailable_seats(vueloDTO.getAvailableSeats());
+        newInfoVuelo.setPrice(vueloDTO.getPrice());
+        newInfoVuelo.setType(vueloDTO.getType());
+        newInfoVuelo.setAirline(vueloDTO.getAirline());
+
+        repository.save(newInfoVuelo);
+        return ResponseEntity.status(200).body("Flight updated successfully.");
+    }
+
+    public ResponseEntity<?> deleteFlight(Long id){
+        Optional<Vuelo> vuelo = this.repository.findById(id);
+        if(vuelo.isEmpty()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Flight deleted");
+        }
+        this.repository.delete(vuelo.get());
+
+        return ResponseEntity.status(HttpStatus.OK).body("Flight deleted.");
     }
 
     public VueloDTO mapDTO(Vuelo vuelo){
