@@ -1,11 +1,10 @@
 package com.aeroapp.aeroapp.dto;
 
 
-import com.aeroapp.aeroapp.Entity.Customer;
 import com.aeroapp.aeroapp.Entity.Plane;
 import com.aeroapp.aeroapp.Entity.Reserva;
-import com.aeroapp.aeroapp.Enums.Airline;
-import com.aeroapp.aeroapp.Enums.FlightType;
+import com.aeroapp.aeroapp.utils.Airline;
+import com.aeroapp.aeroapp.utils.FlightType;
 
 
 import java.time.LocalDateTime;
