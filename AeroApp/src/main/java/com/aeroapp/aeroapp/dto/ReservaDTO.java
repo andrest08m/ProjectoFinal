@@ -13,20 +13,24 @@ public class ReservaDTO {
     private LocalDateTime reservation_time;
     private String class_type;
     private Vuelo flight_code;
+    private String Reserva_id;
+    private String ReservaDisponible;
     private Set<Customer> clientes;
 
 
     public ReservaDTO() {
     }
 
-    public ReservaDTO(int reservation_number,
-                      LocalDateTime reservation_day, LocalDateTime reservation_time,
-                      String class_type, Vuelo flight_code, Set<Customer> clientes) {
+    public ReservaDTO(int reservation_number, LocalDateTime reservation_day, LocalDateTime reservation_time,
+                      String class_type, Vuelo flight_code, String reserva_id, String reservaDisponible, Set<Customer>
+                              clientes) {
         Reservation_number = reservation_number;
         this.reservation_day = reservation_day;
         this.reservation_time = reservation_time;
         this.class_type = class_type;
         this.flight_code = flight_code;
+        Reserva_id = reserva_id;
+        ReservaDisponible = reservaDisponible;
         this.clientes = clientes;
     }
 
@@ -76,5 +80,21 @@ public class ReservaDTO {
 
     public void setClientes(Set<Customer> clientes) {
         this.clientes = clientes;
+    }
+
+    public String getReserva_id() {
+        return Reserva_id;
+    }
+
+    public void setReserva_id(String reserva_id) {
+        Reserva_id = reserva_id;
+    }
+
+    public String getReservaDisponible() {
+        return ReservaDisponible;
+    }
+
+    public void setReservaDisponible(String reservaDisponible) {
+        ReservaDisponible = reservaDisponible;
     }
 }

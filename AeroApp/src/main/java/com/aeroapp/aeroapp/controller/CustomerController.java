@@ -15,7 +15,11 @@ import java.util.List;
 public class CustomerController {
 
     @Autowired
-    CustomerServicelmp customerServicelmp;
+    private  final CustomerServicelmp customerServicelmp;
+
+    public CustomerController(CustomerServicelmp customerServicelmp) {
+        this.customerServicelmp = customerServicelmp;
+    }
 
 
     @GetMapping("")
@@ -32,6 +36,7 @@ public class CustomerController {
             return ResponseEntity.internalServerError().build();
         }
     }
+
 }
 
 
