@@ -18,7 +18,8 @@ public class WebSecurityConfig {
 
 
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity httpSecurity, AuthenticationManager authManager) throws Exception {
+    SecurityFilterChain filterChain(HttpSecurity httpSecurity, AuthenticationManager authManager)
+            throws Exception {
         return httpSecurity.
                 csrf().disable().
                 authorizeRequests().
@@ -47,7 +48,8 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder) throws Exception {
+    AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder)
+            throws Exception {
 
         return http.getSharedObject(AuthenticationManagerBuilder.class)
                 .userDetailsService(userDetailsService())

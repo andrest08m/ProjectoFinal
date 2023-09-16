@@ -3,7 +3,9 @@ package com.aeroapp.aeroapp.Service;
 import com.aeroapp.aeroapp.Entity.Customer;
 import com.aeroapp.aeroapp.Repository.CustomerRepository;
 import com.aeroapp.aeroapp.dto.CustomerDTO;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +19,6 @@ public class CustomerServicelmp implements CustomerService{
     public List<Customer> getAllBookings() {
         return customerRepository.findAll();
     }
-
 
 
     public CustomerDTO createCustomerDTO(CustomerDTO customerDTO) {

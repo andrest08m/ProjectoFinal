@@ -22,7 +22,6 @@ public class ReservaServiceImp implements ReservaService{
         return repository.findAll();
     }
 
-
     public ReservaDTO createReservaDTO(ReservaDTO reserva) {
         Reserva reserva1 = mapFromDTO(reserva);
         Reserva newReserva = repository.save(reserva1);
