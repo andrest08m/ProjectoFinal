@@ -46,7 +46,6 @@ private CustomerRepository customerRepository;
         return ResponseEntity.status(HttpStatus.CREATED).body("Reservation created.");
     }
 
-
     public ReservaDTO createReservaDTO(ReservaDTO reserva) {
         Reserva reserva1 = mapFromDTO(reserva);
         Reserva newReserva = rpository.save(reserva1);

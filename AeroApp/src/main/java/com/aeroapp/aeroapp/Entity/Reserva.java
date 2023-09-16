@@ -17,7 +17,7 @@ public class Reserva {
     private LocalDateTime reservation_time;
     private String class_type;
 
-    private Integer Reserva_id;
+    private String reserva_id;
 
     private String ReservaDisponible;
 
@@ -35,13 +35,14 @@ public class Reserva {
     }
 
     public Reserva(int reservation_number, LocalDateTime reservation_day, LocalDateTime reservation_time,
-                   String class_type, String reserva_id, String reservaDisponible, Vuelo flight_code, Set<Customer> clientes) {
+                   String class_type, String reserva_id, String reservaDisponible, Vuelo flight_code,
+                   Set<Customer> clientes) {
         this.reservation_number = reservation_number;
         this.reservation_day = reservation_day;
         this.reservation_time = reservation_time;
         this.class_type = class_type;
-        Reserva_id = Integer.valueOf(reserva_id);
-        ReservaDisponible = reservaDisponible;
+        this.reserva_id = reserva_id;
+        this.ReservaDisponible = reservaDisponible;
         this.flight_code = flight_code;
         this.clientes = clientes;
     }
@@ -78,12 +79,12 @@ public class Reserva {
         this.reservation_time = reservation_time;
     }
 
-    public Integer getReserva_id() {
-        return Reserva_id;
+    public String getReserva_id() {
+        return reserva_id;
     }
 
-    public void setReserva_id(String plane_id) {
-        this.Reserva_id = Reserva_id;
+    public void setReserva_id(String reserva_id) {
+        this.reserva_id = reserva_id;
     }
 
     public String getClass_type() {
