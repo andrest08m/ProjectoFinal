@@ -33,6 +33,13 @@ public class Vuelo {
     private Plane plane;
     @OneToMany(mappedBy = "flight_code")
     private Set<Reserva> reservas;
+
+
+    @ManyToOne
+    @JoinColumn(name = "Vuelo_id", nullable = false)
+    private  Customer customer;
+
+
     @Enumerated(EnumType.STRING)
     private FlightType type;
     @Enumerated(EnumType.STRING)

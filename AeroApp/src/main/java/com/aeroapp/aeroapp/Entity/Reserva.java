@@ -4,7 +4,6 @@ package com.aeroapp.aeroapp.Entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,6 +16,14 @@ public class Reserva {
     private LocalDateTime reservation_day;
     private LocalDateTime reservation_time;
     private String class_type;
+
+    private String reserva_id;
+
+    private String ReservaDisponible;
+
+
+
+
     @ManyToOne
     @JoinColumn(name = "code")
     private Vuelo flight_code;
@@ -28,13 +35,24 @@ public class Reserva {
     }
 
     public Reserva(int reservation_number, LocalDateTime reservation_day, LocalDateTime reservation_time,
-                    String class_type,Vuelo flight_code, Set<Customer> clientes) {
+                   String class_type, String reserva_id, String reservaDisponible, Vuelo flight_code,
+                   Set<Customer> clientes) {
         this.reservation_number = reservation_number;
         this.reservation_day = reservation_day;
         this.reservation_time = reservation_time;
         this.class_type = class_type;
+        this.reserva_id = reserva_id;
+        this.ReservaDisponible = reservaDisponible;
         this.flight_code = flight_code;
         this.clientes = clientes;
+    }
+
+    public String getReservaDisponible() {
+        return ReservaDisponible;
+    }
+
+    public void setReservaDisponible(String reservaDisponible) {
+        ReservaDisponible = reservaDisponible;
     }
 
     public int getReservation_number() {
@@ -61,7 +79,13 @@ public class Reserva {
         this.reservation_time = reservation_time;
     }
 
+    public String getReserva_id() {
+        return reserva_id;
+    }
 
+    public void setReserva_id(String reserva_id) {
+        this.reserva_id = reserva_id;
+    }
 
     public String getClass_type() {
         return class_type;

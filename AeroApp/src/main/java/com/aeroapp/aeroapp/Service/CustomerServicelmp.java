@@ -1,20 +1,22 @@
 package com.aeroapp.aeroapp.Service;
 
 import com.aeroapp.aeroapp.Entity.Customer;
-import com.aeroapp.aeroapp.Repository.CustomerRepository;
-import com.aeroapp.aeroapp.dto.CustomerDTO;
-import org.apache.coyote.Response;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 
+import com.aeroapp.aeroapp.Repository.CustomerRepository;
+import com.aeroapp.aeroapp.Repository.ReservaRepository;
+import com.aeroapp.aeroapp.dto.CustomerDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import java.util.List;
+
 
 @Service
 public class CustomerServicelmp implements CustomerService{
 
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private ReservaRepository reservaRepository;
 
     public List<Customer> getAllBookings() {
         return customerRepository.findAll();

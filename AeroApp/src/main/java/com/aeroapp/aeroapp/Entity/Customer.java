@@ -2,6 +2,7 @@ package com.aeroapp.aeroapp.Entity;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "customer")
@@ -14,9 +15,15 @@ public class Customer {
     private String last_name;
     private Long cell_phone;
     private String gender;
+
+    private String Customer_id;
     @ManyToOne
     @JoinColumn(name = "reserva_id", nullable = false)
     private  Reserva reserva;
+
+
+    @OneToMany(mappedBy = "customer")
+    private Set<Vuelo> Vuelo;
 
 
     public Customer() {
@@ -46,6 +53,8 @@ public class Customer {
     public void setName(String name) {
         this.name = name;
     }
+
+
 
     public String getLast_name() {
         return last_name;
@@ -79,4 +88,7 @@ public class Customer {
         this.reserva = reserva;
     }
 
+    public String getReservaDisponible() {
+        return getReservaDisponible();
+    }
 }
