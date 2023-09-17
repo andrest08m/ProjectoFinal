@@ -16,9 +16,7 @@ public class Reserva {
     private LocalDateTime reservation_day;
     private LocalDateTime reservation_time;
     private String class_type;
-
     private String reserva_id;
-
     private String ReservaDisponible;
 
 
