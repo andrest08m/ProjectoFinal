@@ -95,6 +95,7 @@ public class VueloServiceImp implements VueloService{
         this.repository.delete(vuelo.get());
 
         return ResponseEntity.status(HttpStatus.OK).body("Flight deleted.");
+
     }
 
     public VueloDTO mapDTO(Vuelo vuelo){
