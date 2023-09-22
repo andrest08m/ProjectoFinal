@@ -39,6 +39,7 @@ public class Vuelo {
     @Enumerated(EnumType.STRING)
     private Airline airline;
 
+
     public Vuelo() {
     }
 
