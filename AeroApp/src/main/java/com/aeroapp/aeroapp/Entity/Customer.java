@@ -9,7 +9,12 @@ import javax.persistence.*;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+<<<<<<< HEAD
     private Long id_customer;
+=======
+
+    private int id_customer;
+>>>>>>> bba28b6b7175f1ba7d5adc389a4ed8c25fa3f458
     private String name;
     private String last_name;
     private Long cell_phone;

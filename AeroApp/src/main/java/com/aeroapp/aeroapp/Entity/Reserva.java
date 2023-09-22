@@ -17,8 +17,12 @@ public class Reserva {
     private LocalDateTime reservation_day;
     private LocalDateTime reservation_time;
     private String class_type;
+<<<<<<< HEAD
 
     private String reservation_id;
+=======
+    private String reserva_id;
+>>>>>>> bba28b6b7175f1ba7d5adc389a4ed8c25fa3f458
     private String ReservaDisponible;
 
     @ManyToOne
