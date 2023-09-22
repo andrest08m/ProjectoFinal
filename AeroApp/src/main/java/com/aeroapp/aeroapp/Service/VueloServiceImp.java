@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,17 +26,26 @@ public class VueloServiceImp implements VueloService{
     private PlaneRepository pRepository;
 
 
+
     public ResponseEntity<?> createVueloDTO(VueloDTO vueloDTO) {
         Vuelo vuelo = mapFromDTO(vueloDTO);
 
-        Optional<Plane> avionOptional = pRepository.findById(vuelo.getPlane_id());
-        if(avionOptional.isPresent()){
-            Plane avion = avionOptional.get();
-            vuelo.setPlane(avion);
-            vuelo.setAvailable_seats(avion.getAvailableSeats());
-        }else{
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Plane not found.");
+        ArrayList<Plane> planes = new ArrayList<>(pRepository.findAll());
+
+        for(Plane plane : planes){
+            if(plane.getPlane_code().equals(vuelo.getPlane_id())){
+                Optional<Plane> avionOptional = pRepository.findById(plane.getId_plane());
+                if(avionOptional.isPresent()){
+                    Plane avion = avionOptional.get();
+                    vuelo.setPlane(avion);
+                    vuelo.setAvailable_seats(avion.getAvailableSeats());
+                }else{
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Plane not found.");
+                }
+            }
         }
+
+
         Vuelo newVuelo = repository.save(vuelo);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Flight created.");
@@ -67,9 +77,9 @@ public class VueloServiceImp implements VueloService{
         newInfoVuelo.setOrigin(vueloDTO.getOrigin());
         newInfoVuelo.setDestiny(vueloDTO.getDestiny());
         newInfoVuelo.setDepartureDate(vueloDTO.getDepartureDate());
-        newInfoVuelo.setPlane_id(vueloDTO.getPlane_id());
         newInfoVuelo.setArrivalDate(vueloDTO.getArrivalDate());
         newInfoVuelo.setAvailable_seats(vueloDTO.getAvailableSeats());
+        newInfoVuelo.setPlane_id(vueloDTO.getPlane_id());
         newInfoVuelo.setPrice(vueloDTO.getPrice());
         newInfoVuelo.setType(vueloDTO.getType());
         newInfoVuelo.setAirline(vueloDTO.getAirline());
@@ -86,6 +96,7 @@ public class VueloServiceImp implements VueloService{
         this.repository.delete(vuelo.get());
 
         return ResponseEntity.status(HttpStatus.OK).body("Flight deleted.");
+
     }
 
     public VueloDTO mapDTO(Vuelo vuelo){
@@ -94,10 +105,10 @@ public class VueloServiceImp implements VueloService{
         vueloDTO.setCode(vuelo.getCode());
         vueloDTO.setOrigin(vuelo.getOrigin());
         vueloDTO.setDestiny(vuelo.getDestiny());
-        vueloDTO.setPlane_id(vuelo.getPlane_id());
         vueloDTO.setDepartureDate(vuelo.getDepartureDate());
         vueloDTO.setArrivalDate(vuelo.getArrivalDate());
         vueloDTO.setAvailableSeats(vuelo.getAvailableSeats());
+        vueloDTO.setPlane_id(vuelo.getPlane_id());
         vueloDTO.setPrice(vuelo.getPrice());
         vueloDTO.setType(vuelo.getType());
         vueloDTO.setAirline(vuelo.getAirline());
@@ -113,9 +124,9 @@ public class VueloServiceImp implements VueloService{
         vuelo.setOrigin(vueloDTO.getOrigin());
         vuelo.setDestiny(vueloDTO.getDestiny());
         vuelo.setDepartureDate(vueloDTO.getDepartureDate());
-        vuelo.setPlane_id(vueloDTO.getPlane_id());
         vuelo.setArrivalDate(vueloDTO.getArrivalDate());
         vuelo.setAvailable_seats(vueloDTO.getAvailableSeats());
+        vuelo.setPlane_id(vueloDTO.getPlane_id());
         vuelo.setPrice(vueloDTO.getPrice());
         vuelo.setType(vueloDTO.getType());
         vuelo.setAirline(vueloDTO.getAirline());

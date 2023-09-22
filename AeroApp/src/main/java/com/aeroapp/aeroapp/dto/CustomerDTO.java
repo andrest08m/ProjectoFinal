@@ -1,7 +1,7 @@
 package com.aeroapp.aeroapp.dto;
 
 public class CustomerDTO {
-    public int Id_customer;
+    public Long Id_customer;
     public String name;
     public String last_name;
     public long cell_phone;
@@ -10,7 +10,7 @@ public class CustomerDTO {
     public CustomerDTO() {
     }
 
-    public CustomerDTO(int id_customers, String name, String last_name, long cell_phone, String gender) {
+    public CustomerDTO(Long id_customers, String name, String last_name, long cell_phone, String gender) {
         Id_customer = id_customers;
         this.name = name;
         this.last_name = last_name;
@@ -18,12 +18,12 @@ public class CustomerDTO {
         this.gender = gender;
     }
 
-    public int getId_customers() {
+    public Long getId_customer() {
         return Id_customer;
     }
 
-    public void setId_customers(int id_customers) {
-        Id_customer = id_customers;
+    public void setId_customer(Long id_customer) {
+        Id_customer = id_customer;
     }
 
     public String getName() {

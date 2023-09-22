@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class ReservaServiceImp implements ReservaService{
@@ -32,15 +33,9 @@ private CustomerRepository customerRepository;
 
     public ResponseEntity<?> createReserva(ReservaDTO reservaDTO) {
         Reserva reserva = mapFromDTO(reservaDTO);
+        List<Customer> reservaOptional = customerRepository.findAll();
 
-        Optional<Customer> ReservaOptional = customerRepository.findById(Integer.valueOf(reserva.getReserva_id()));
-        if(ReservaOptional.isPresent()){
-            Customer cliente = ReservaOptional.get();
-            reserva.setReserva_id(String.valueOf(cliente));
-            reserva.setReservaDisponible(cliente.getReservaDisponible());
-        }else{
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Reservation not found.");
-        }
+        reserva.setClientes((List<Customer>) reservaOptional);
         Reserva newReserva = rpository.save(reserva);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Reservation created.");
@@ -77,8 +72,8 @@ private CustomerRepository customerRepository;
         newInfoReserva.setReservation_day(reservaDTO.getReservation_day());
         newInfoReserva.setReservation_time(reservaDTO.getReservation_time());
         newInfoReserva.setClass_type(reservaDTO.getClass_type());
-        newInfoReserva.setReserva_id(reservaDTO.getReserva_id());
-        newInfoReserva.setReservaDisponible(reservaDTO.getReservaDisponible());
+        newInfoReserva.setReservation_id(reservaDTO.getReserva_id());
+
 
         rpository.save(newInfoReserva);
         return ResponseEntity.status(200).body("Reservation updated successfully.");
@@ -103,8 +98,8 @@ private CustomerRepository customerRepository;
         reservaDTO.setReservation_number(reserva.getReservation_number());
         reservaDTO.setReservation_day(reserva.getReservation_day());
         reservaDTO.setReservation_time(reserva.getReservation_time());
-        reservaDTO.setReserva_id(reserva.getReserva_id());
-        reservaDTO.setReservaDisponible(reserva.getReservaDisponible());
+        reservaDTO.setReserva_id(reserva.getReservation_id());
+
 
         return reservaDTO;
     }
@@ -114,8 +109,8 @@ private CustomerRepository customerRepository;
         reserva.setReservation_day(reservaDTO.getReservation_day());
         reserva.setReservation_time(reservaDTO.getReservation_time());
         reserva.setClass_type(reservaDTO.getClass_type());
-        reserva.setReserva_id(reservaDTO.getReserva_id());
-        reserva.setReservaDisponible(reservaDTO.getReservaDisponible());
+
+
         return reserva;
     }
 }
