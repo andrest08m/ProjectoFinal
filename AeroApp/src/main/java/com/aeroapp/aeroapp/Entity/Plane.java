@@ -14,6 +14,7 @@ public class Plane {
     private Long id_plane;
     private String plane_code;
     private String airplane_model;
+
     private int availableSeats;
     @OneToOne(mappedBy = "plane")
     @JsonIgnore
