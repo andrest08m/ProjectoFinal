@@ -34,7 +34,7 @@ public class CustomerServicelmp implements CustomerService{
     public CustomerDTO mapDTO(Customer customer){
         CustomerDTO customerDTO = new CustomerDTO();
 
-        customerDTO.setId_customers(customer.getId_customer());
+        customerDTO.setId_customer(customer.getId_customer());
         customerDTO.setName(customer.getName());
         customerDTO.setLast_name(customer.getLast_name());
         customerDTO.setCell_phone(customer.getCell_phone());

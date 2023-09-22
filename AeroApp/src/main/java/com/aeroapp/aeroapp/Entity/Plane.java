@@ -9,8 +9,10 @@ import javax.persistence.*;
 public class Plane {
 
     @Id
-    @Column(name= "registration_id")
-    private String id_plane;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, updatable = false)
+    private Long id_plane;
+    private String plane_code;
     private String airplane_model;
     private int availableSeats;
     @OneToOne(mappedBy = "plane")
@@ -20,18 +22,27 @@ public class Plane {
     public Plane() {
     }
 
-    public Plane(String id_plane, String airplane_model, int availableSeats, Vuelo flight) {
+    public Plane(Long id_plane, String plane_code, String airplane_model, int availableSeats, Vuelo flight) {
         this.id_plane = id_plane;
+        this.plane_code = plane_code;
         this.airplane_model = airplane_model;
         this.availableSeats = availableSeats;
         this.flight = flight;
     }
 
-    public String getId_plane() {
+    public Long getId_plane() {
         return id_plane;
     }
 
-    public void setId_plane(String id_plane) {
+    public String getPlane_code() {
+        return plane_code;
+    }
+
+    public void setPlane_code(String plane_code) {
+        this.plane_code = plane_code;
+    }
+
+    public void setId_plane(Long id_plane) {
         this.id_plane = id_plane;
     }
 

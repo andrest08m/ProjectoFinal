@@ -4,5 +4,5 @@ import com.aeroapp.aeroapp.Entity.Plane;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PlaneRepository extends JpaRepository<Plane, String> {
+public interface PlaneRepository extends JpaRepository<Plane, Long> {
 }

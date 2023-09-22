@@ -29,16 +29,10 @@ public class Vuelo {
     private int available_seats;
     private double price;
     @OneToOne
-    @JoinColumn(name = "plane")
+    @JoinColumn(name = "flight")
     private Plane plane;
     @OneToMany(mappedBy = "flight_code")
     private Set<Reserva> reservas;
-
-
-    @ManyToOne
-    @JoinColumn(name = "Vuelo_id", nullable = false)
-    private  Customer customer;
-
 
     @Enumerated(EnumType.STRING)
     private FlightType type;
@@ -80,67 +74,42 @@ public class Vuelo {
     public void setAvailable_seats(int available_seats) {
         this.available_seats = available_seats;
     }
-
-    public Long getId_flight() {
-        return id_flight;
-    }
-
-    public void setId_flight(Long id_flight) {
-        this.id_flight = id_flight;
-    }
-
     public String getCode() {
         return code;
     }
-
     public void setCode(String code) {
         this.code = code;
     }
-
     public String getOrigin() {
         return origin;
     }
-
     public void setOrigin(String origin) {
         this.origin = origin;
     }
-
     public String getDestiny() {
         return destiny;
     }
-
     public void setDestiny(String destiny) {
         this.destiny = destiny;
     }
-
     public LocalDateTime getDepartureDate() {
         return departureDate;
     }
-
     public void setDepartureDate(LocalDateTime departureDate) {
         this.departureDate = departureDate;
     }
-
     public LocalDateTime getArrivalDate() {
         return arrivalDate;
     }
-
     public void setArrivalDate(LocalDateTime arrivalDate) {
         this.arrivalDate = arrivalDate;
     }
-
     public String getPlane_id() {
         return plane_id;
     }
-
     public void setPlane_id(String plane_id) {
         this.plane_id = plane_id;
     }
-
-    public int getAvailable_seats() {
-        return available_seats;
-    }
-
     public double getPrice() {
         return price;
     }
@@ -148,21 +117,11 @@ public class Vuelo {
     public void setPrice(double price) {
         this.price = price;
     }
-
-    public Plane getPlane() {
-        return plane;
-    }
-
     public void setPlane(Plane plane) {
         this.plane = plane;
     }
-
     public Set<Reserva> getCustomer() {
         return reservas;
-    }
-
-    public void setCustomer(Set<Reserva> reservas) {
-        this.reservas = reservas;
     }
 
     public FlightType getType() {
