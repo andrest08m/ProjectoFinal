@@ -38,7 +38,7 @@ public class VueloServiceImp implements VueloService{
                 if(avionOptional.isPresent()){
                     Plane avion = avionOptional.get();
                     vuelo.setPlane(avion);
-                    vuelo.setAvailable_seats(avion.getAvailableSeats());
+                    vuelo.setAvailable_seats(avion.getAvailable_seats());
                 }else{
                     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Plane not found.");
                 }

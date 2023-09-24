@@ -66,7 +66,7 @@ public class Vuelo {
         if(plane != null){
             List<Integer> clientsAboard =
                     getCustomer().stream().map(fn -> fn.getClientes().size()).collect(Collectors.toList());
-            return this.plane.getAvailableSeats() - clientsAboard.size();
+            return this.plane.getAvailable_seats() - clientsAboard.size();
         }
 
         return 0;

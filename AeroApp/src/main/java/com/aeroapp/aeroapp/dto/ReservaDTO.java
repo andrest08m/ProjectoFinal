@@ -8,13 +8,13 @@ import java.util.Set;
 
 public class ReservaDTO {
 
-    private int Reservation_number;
+    private int reservation_number;
     private LocalDateTime reservation_day;
     private LocalDateTime reservation_time;
     private String class_type;
     private Vuelo flight_code;
-    private String Reserva_id;
-    private String ReservaDisponible;
+    private String reserva_id;
+    private String reservaDisponible;
     private Set<Customer> clientes;
 
 
@@ -24,22 +24,22 @@ public class ReservaDTO {
     public ReservaDTO(int reservation_number, LocalDateTime reservation_day, LocalDateTime reservation_time,
                       String class_type, Vuelo flight_code, String reserva_id, String reservaDisponible, Set<Customer>
                               clientes) {
-        Reservation_number = reservation_number;
+        this.reservation_number = reservation_number;
         this.reservation_day = reservation_day;
         this.reservation_time = reservation_time;
         this.class_type = class_type;
         this.flight_code = flight_code;
-        Reserva_id = reserva_id;
-        ReservaDisponible = reservaDisponible;
+        this.reserva_id = reserva_id;
+        this.reservaDisponible = reservaDisponible;
         this.clientes = clientes;
     }
 
     public int getReservation_number() {
-        return Reservation_number;
+        return reservation_number;
     }
 
     public void setReservation_number(int reservation_number) {
-        Reservation_number = reservation_number;
+        reservation_number = reservation_number;
     }
 
     public LocalDateTime getReservation_day() {
@@ -83,18 +83,18 @@ public class ReservaDTO {
     }
 
     public String getReserva_id() {
-        return Reserva_id;
+        return reserva_id;
     }
 
     public void setReserva_id(String reserva_id) {
-        Reserva_id = reserva_id;
+        reserva_id = reserva_id;
     }
 
     public String getReservaDisponible() {
-        return ReservaDisponible;
+        return reservaDisponible;
     }
 
     public void setReservaDisponible(String reservaDisponible) {
-        ReservaDisponible = reservaDisponible;
+        reservaDisponible = reservaDisponible;
     }
 }
