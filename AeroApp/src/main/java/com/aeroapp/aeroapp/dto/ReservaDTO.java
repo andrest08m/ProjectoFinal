@@ -14,23 +14,25 @@ public class ReservaDTO {
     private String class_type;
     private Vuelo flight_code;
     private String reserva_id;
-    private String reservaDisponible;
+    private byte reserva_disponible;
     private Set<Customer> clientes;
+    private String plane_code;
 
 
     public ReservaDTO() {
     }
 
     public ReservaDTO(int reservation_number, LocalDateTime reservation_day, LocalDateTime reservation_time,
-                      String class_type, Vuelo flight_code, String reserva_id, String reservaDisponible, Set<Customer>
-                              clientes) {
+                      String class_type, Vuelo flight_code, String reserva_id, byte reserva_disponible,
+                      String plane_code,
+                      Set<Customer> clientes) {
         this.reservation_number = reservation_number;
         this.reservation_day = reservation_day;
         this.reservation_time = reservation_time;
         this.class_type = class_type;
         this.flight_code = flight_code;
         this.reserva_id = reserva_id;
-        this.reservaDisponible = reservaDisponible;
+        this.reserva_disponible = reserva_disponible;
         this.clientes = clientes;
     }
 
@@ -39,7 +41,7 @@ public class ReservaDTO {
     }
 
     public void setReservation_number(int reservation_number) {
-        reservation_number = reservation_number;
+        this.reservation_number = reservation_number;
     }
 
     public LocalDateTime getReservation_day() {
@@ -87,14 +89,22 @@ public class ReservaDTO {
     }
 
     public void setReserva_id(String reserva_id) {
-        reserva_id = reserva_id;
+        this.reserva_id = reserva_id;
     }
 
-    public String getReservaDisponible() {
-        return reservaDisponible;
+    public byte getReservaDisponible() {
+        return reserva_disponible;
     }
 
-    public void setReservaDisponible(String reservaDisponible) {
-        reservaDisponible = reservaDisponible;
+    public void setReservaDisponible(byte reserva_disponible) {
+        this.reserva_disponible = reserva_disponible;
+    }
+
+    public String getPlane_code() {
+        return plane_code;
+    }
+
+    public void setPlane_code(String plane_code) {
+        this.plane_code = plane_code;
     }
 }

@@ -44,24 +44,14 @@ public class ReservaController {
 
     @PostMapping()
     public ResponseEntity createFlight(@RequestBody ReservaDTO reserva) {
-        try {
-            if(reserva.getReserva_id().equals("") || reserva.getReserva_id() == null){
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-            this.reservaServiceImp.createReservaDTO(reserva);
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(this.reservaServiceImp.createReservaDTO(reserva));
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
-        }
+            reservaServiceImp.createReserva(reserva);
+
+            return ResponseEntity.status(201).body("Reservation created");
     }
-
-
 
     @PutMapping("{id}")
     public ResponseEntity<?> updateReserva(@RequestBody ReservaDTO reservaDTO,
                                            @PathVariable(name = "id") Long id) {
-
         return reservaServiceImp.updateReserva(reservaDTO, id);
     }
 

@@ -15,9 +15,8 @@ public class Customer {
     private String last_name;
     private Long cell_phone;
     private String gender;
-    @OneToMany(mappedBy = "customer")
-    private Set<Vuelo> vuelo;
 
+    @ManyToOne
     @JoinColumn(name = "reservation_id", nullable = false)
     private Reserva reserva;
 
@@ -27,13 +26,12 @@ public class Customer {
 
 
     public Customer(Long id_customer, String name, String last_name, Long cell_phone,
-                    String gender, Set<Vuelo> vuelo, Reserva reserva) {
+                    String gender, Reserva reserva) {
         this.id_customer = id_customer;
         this.name = name;
         this.last_name = last_name;
         this.cell_phone = cell_phone;
         this.gender = gender;
-        this.vuelo = vuelo;
         this.reserva = reserva;
     }
 
@@ -75,14 +73,6 @@ public class Customer {
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    public Set<Vuelo> getVuelo() {
-        return this.vuelo;
-    }
-
-    public void setVuelo(Set<Vuelo> vuelo) {
-        this.vuelo = vuelo;
     }
 
     public Reserva getReserva() {
