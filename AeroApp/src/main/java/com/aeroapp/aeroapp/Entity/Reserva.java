@@ -4,6 +4,7 @@ package com.aeroapp.aeroapp.Entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,41 +18,38 @@ public class Reserva {
     private LocalDateTime reservation_day;
     private LocalDateTime reservation_time;
     private String class_type;
-    private String reserva_id;
-    private String ReservaDisponible;
-
-
-
+    private String reservation_id;
+    private String reservaDisponible;
 
     @ManyToOne
     @JoinColumn(name = "code")
     private Vuelo flight_code;
 
     @OneToMany(mappedBy = "reserva")
-    private Set<Customer> clientes;
+    private List<Customer> clientes;
 
     public Reserva() {
     }
 
     public Reserva(int reservation_number, LocalDateTime reservation_day, LocalDateTime reservation_time,
-                   String class_type, String reserva_id, String reservaDisponible, Vuelo flight_code,
-                   Set<Customer> clientes) {
+                   String class_type, String reservation_id, String reservaDisponible, Vuelo flight_code,
+                   List<Customer> clientes) {
         this.reservation_number = reservation_number;
         this.reservation_day = reservation_day;
         this.reservation_time = reservation_time;
         this.class_type = class_type;
-        this.reserva_id = reserva_id;
-        this.ReservaDisponible = reservaDisponible;
+        this.reservation_id = reservation_id;
+        this.reservaDisponible = reservaDisponible;
         this.flight_code = flight_code;
         this.clientes = clientes;
     }
 
     public String getReservaDisponible() {
-        return ReservaDisponible;
+        return reservaDisponible;
     }
 
     public void setReservaDisponible(String reservaDisponible) {
-        ReservaDisponible = reservaDisponible;
+        this.reservaDisponible = reservaDisponible;
     }
 
     public int getReservation_number() {
@@ -77,15 +75,6 @@ public class Reserva {
     public void setReservation_time(LocalDateTime reservation_time) {
         this.reservation_time = reservation_time;
     }
-
-    public String getReserva_id() {
-        return reserva_id;
-    }
-
-    public void setReserva_id(String reserva_id) {
-        this.reserva_id = reserva_id;
-    }
-
     public String getClass_type() {
         return class_type;
     }
@@ -94,13 +83,19 @@ public class Reserva {
         this.class_type = class_type;
     }
 
+    public String getReservation_id() {
+        return reservation_id;
+    }
 
+    public void setReservation_id(String reservation_id) {
+        this.reservation_id = reservation_id;
+    }
 
-    public Set<Customer> getClientes() {
+    public List<Customer> getClientes() {
         return clientes;
     }
 
-    public void setClientes(Set<Customer> clientes) {
+    public void setClientes(List<Customer> clientes) {
         this.clientes = clientes;
     }
 
@@ -111,4 +106,5 @@ public class Reserva {
     public void setFlight_code(Vuelo flight_code) {
         this.flight_code = flight_code;
     }
+
 }

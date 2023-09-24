@@ -6,8 +6,11 @@ import com.aeroapp.aeroapp.Repository.CustomerRepository;
 import com.aeroapp.aeroapp.Repository.ReservaRepository;
 import com.aeroapp.aeroapp.dto.CustomerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Random;
 
 
 @Service
@@ -22,11 +25,44 @@ public class CustomerServicelmp implements CustomerService{
         return customerRepository.findAll();
     }
 
+    public String createReservationId(){
+        // create a string of uppercase and lowercase characters and numbers
+        String upperAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String lowerAlphabet = "abcdefghijklmnopqrstuvwxyz";
+        String numbers = "0123456789";
+
+        // combine all strings
+        String alphaNumeric = upperAlphabet + lowerAlphabet + numbers;
+
+        // create random string builder
+        StringBuilder sb = new StringBuilder();
+
+        // create an object of Random class
+        Random random = new Random();
+
+        // specify length of random string
+        int length = 10;
+
+        for(int i = 0; i < length; i++) {
+
+            // generate random index number
+            int index = random.nextInt(alphaNumeric.length());
+
+            // get character specified by index
+            // from the string
+            char randomChar = alphaNumeric.charAt(index);
+
+            // append the character to string builder
+            sb.append(randomChar);
+        }
+
+        return sb.toString();
+    }
 
     public CustomerDTO createCustomerDTO(CustomerDTO customerDTO) {
         Customer customer = mapFromDTO(customerDTO);
+        customer.getReserva().setReservation_id(createReservationId());
         Customer newCustomer = customerRepository.save(customer);
-
 
         return mapDTO(newCustomer);
     }
@@ -34,7 +70,7 @@ public class CustomerServicelmp implements CustomerService{
     public CustomerDTO mapDTO(Customer customer){
         CustomerDTO customerDTO = new CustomerDTO();
 
-        customerDTO.setId_customers(customer.getId_customer());
+        customerDTO.setId_customer(customer.getId_customer());
         customerDTO.setName(customer.getName());
         customerDTO.setLast_name(customer.getLast_name());
         customerDTO.setCell_phone(customer.getCell_phone());
