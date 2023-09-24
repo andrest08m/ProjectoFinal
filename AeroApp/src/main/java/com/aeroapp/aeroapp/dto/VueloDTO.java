@@ -53,7 +53,7 @@ public class VueloDTO {
         if(plane != null){
             List<Integer> clientsAboard =
                     getClientes().stream().map(fn -> fn.getClientes().size()).collect(Collectors.toList());
-            return this.plane.getAvailableSeats() - clientsAboard.size();
+            return this.plane.getAvailable_seats() - clientsAboard.size();
         }
 
         return 0;

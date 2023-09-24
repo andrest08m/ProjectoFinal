@@ -17,13 +17,8 @@ public class Reserva {
     private LocalDateTime reservation_day;
     private LocalDateTime reservation_time;
     private String class_type;
-<<<<<<< HEAD
-
     private String reservation_id;
-=======
-    private String reserva_id;
->>>>>>> bba28b6b7175f1ba7d5adc389a4ed8c25fa3f458
-    private String ReservaDisponible;
+    private String reservaDisponible;
 
     @ManyToOne
     @JoinColumn(name = "code")
@@ -43,17 +38,17 @@ public class Reserva {
         this.reservation_time = reservation_time;
         this.class_type = class_type;
         this.reservation_id = reservation_id;
-        ReservaDisponible = reservaDisponible;
+        this.reservaDisponible = reservaDisponible;
         this.flight_code = flight_code;
         this.clientes = clientes;
     }
 
     public String getReservaDisponible() {
-        return ReservaDisponible;
+        return reservaDisponible;
     }
 
     public void setReservaDisponible(String reservaDisponible) {
-        ReservaDisponible = reservaDisponible;
+        this.reservaDisponible = reservaDisponible;
     }
 
     public int getReservation_number() {
@@ -110,4 +105,5 @@ public class Reserva {
     public void setFlight_code(Vuelo flight_code) {
         this.flight_code = flight_code;
     }
+
 }

@@ -1,37 +1,21 @@
-package com.aeroapp.aeroapp.Entity;
+package com.aeroapp.aeroapp.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.aeroapp.aeroapp.Entity.Vuelo;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "plane")
-public class Plane {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, updatable = false)
-    private Long id_plane;
+public class PlaneDTO {
     private String plane_code;
     private String airplane_model;
     private int available_seats;
-    @OneToOne(mappedBy = "plane")
-    @JsonIgnore
     private Vuelo flight;
 
-    public Plane() {
+    public PlaneDTO() {
     }
 
-    public Plane(Long id_plane, String plane_code, String airplane_model, int availableSeats, Vuelo flight) {
-        this.id_plane = id_plane;
+    public PlaneDTO(String plane_code, String airplane_model, int available_seats, Vuelo flight) {
         this.plane_code = plane_code;
         this.airplane_model = airplane_model;
-        this.available_seats = availableSeats;
+        this.available_seats = available_seats;
         this.flight = flight;
-    }
-
-    public Long getId_plane() {
-        return id_plane;
     }
 
     public String getPlane_code() {
@@ -42,10 +26,6 @@ public class Plane {
         this.plane_code = plane_code;
     }
 
-    public void setId_plane(Long id_plane) {
-        this.id_plane = id_plane;
-    }
-
     public String getAirplane_model() {
         return airplane_model;
     }
@@ -54,11 +34,11 @@ public class Plane {
         this.airplane_model = airplane_model;
     }
 
-    public int getAvailable_seats() {
+    public int getAvailableSeats() {
         return available_seats;
     }
 
-    public void setAvailable_seats(int available_seats) {
+    public void setAvailableSeats(int available_seats) {
         this.available_seats = available_seats;
     }
 
