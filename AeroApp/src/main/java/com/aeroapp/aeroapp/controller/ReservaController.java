@@ -45,12 +45,17 @@ public class ReservaController {
     @PostMapping()
     public ResponseEntity createFlight(@RequestBody ReservaDTO reserva) {
         try {
+            if(reserva.getReserva_id().equals("") || reserva.getReserva_id() == null){
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            this.reservaServiceImp.createReservaDTO(reserva);
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(this.reservaServiceImp.createReservaDTO(reserva));
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }
     }
+
 
 
     @PutMapping("{id}")
