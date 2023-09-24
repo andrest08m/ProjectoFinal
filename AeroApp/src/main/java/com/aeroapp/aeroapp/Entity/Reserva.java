@@ -2,6 +2,8 @@ package com.aeroapp.aeroapp.Entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,12 +21,13 @@ public class Reserva {
     private LocalDateTime reservation_time;
     private String class_type;
     private String reservation_id;
-    private String reservaDisponible;
+    private byte reserva_disponible;
+    private String plane_code;
 
     @ManyToOne
-    @JoinColumn(name = "code")
+    @JoinColumn(name = "flight_code")
+    @JsonIgnore
     private Vuelo flight_code;
-
     @OneToMany(mappedBy = "reserva")
     private List<Customer> clientes;
 
@@ -32,24 +35,26 @@ public class Reserva {
     }
 
     public Reserva(int reservation_number, LocalDateTime reservation_day, LocalDateTime reservation_time,
-                   String class_type, String reservation_id, String reservaDisponible, Vuelo flight_code,
+                   String class_type, String reservation_id, byte reserva_disponible,String plane_code,
+                   Vuelo flight_code,
                    List<Customer> clientes) {
         this.reservation_number = reservation_number;
         this.reservation_day = reservation_day;
         this.reservation_time = reservation_time;
         this.class_type = class_type;
         this.reservation_id = reservation_id;
-        this.reservaDisponible = reservaDisponible;
+        this.reserva_disponible = reserva_disponible;
+        this.plane_code = plane_code;
         this.flight_code = flight_code;
         this.clientes = clientes;
     }
 
-    public String getReservaDisponible() {
-        return reservaDisponible;
+    public byte getReservaDisponible() {
+        return reserva_disponible;
     }
 
-    public void setReservaDisponible(String reservaDisponible) {
-        this.reservaDisponible = reservaDisponible;
+    public void setReservaDisponible(byte reservaDisponible) {
+        this.reserva_disponible = reservaDisponible;
     }
 
     public int getReservation_number() {
@@ -107,4 +112,11 @@ public class Reserva {
         this.flight_code = flight_code;
     }
 
+    public String getPlane_code() {
+        return plane_code;
+    }
+
+    public void setPlane_code(String plane_code) {
+        this.plane_code = plane_code;
+    }
 }

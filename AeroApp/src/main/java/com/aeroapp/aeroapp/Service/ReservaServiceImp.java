@@ -8,6 +8,7 @@ import com.aeroapp.aeroapp.Entity.Vuelo;
 import com.aeroapp.aeroapp.Repository.CustomerRepository;
 import com.aeroapp.aeroapp.Repository.ReservaRepository;
 
+import com.aeroapp.aeroapp.Repository.VueloRepository;
 import com.aeroapp.aeroapp.dto.ReservaDTO;
 
 
@@ -26,6 +27,8 @@ public class ReservaServiceImp implements ReservaService{
 
 @Autowired
     private ReservaRepository rpository;
+@Autowired
+    private VueloRepository vueloRepository;
 
 
 @Autowired
@@ -36,6 +39,14 @@ private CustomerRepository customerRepository;
         List<Customer> reservaOptional = customerRepository.findAll();
 
         reserva.setClientes((List<Customer>) reservaOptional);
+        List<Vuelo> listOfFlights = vueloRepository.findAll();
+
+        for(Vuelo vuelo : listOfFlights){
+            if(reserva.getPlane_code().equals(vuelo.getPlane_id())){
+                reserva.setFlight_code(vuelo);
+            }
+        }
+
         Reserva newReserva = rpository.save(reserva);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Reservation created.");
@@ -46,15 +57,16 @@ private CustomerRepository customerRepository;
         Reserva newReserva = rpository.save(reserva1);
         return mapDTO(newReserva);
     }
-        public ReservaDTO findById(Long id){
-            Optional<Reserva> ReservaPorId = rpository.findById(id);
 
-            if(ReservaPorId.isPresent()){
-                return mapDTO(ReservaPorId.get());
-            }else{
-                throw new RuntimeException();
-            }
+    public ReservaDTO findById(Long id){
+        Optional<Reserva> ReservaPorId = rpository.findById(id);
+
+        if(ReservaPorId.isPresent()){
+            return mapDTO(ReservaPorId.get());
+        }else{
+            throw new RuntimeException();
         }
+    }
 
 
     public List<Reserva> getAllBookings() {
@@ -99,7 +111,7 @@ private CustomerRepository customerRepository;
         reservaDTO.setReservation_day(reserva.getReservation_day());
         reservaDTO.setReservation_time(reserva.getReservation_time());
         reservaDTO.setReserva_id(reserva.getReservation_id());
-
+        reservaDTO.setPlane_code(reserva.getPlane_code());
 
         return reservaDTO;
     }
@@ -109,7 +121,7 @@ private CustomerRepository customerRepository;
         reserva.setReservation_day(reservaDTO.getReservation_day());
         reserva.setReservation_time(reservaDTO.getReservation_time());
         reserva.setClass_type(reservaDTO.getClass_type());
-
+        reserva.setPlane_code(reservaDTO.getPlane_code());
 
         return reserva;
     }
