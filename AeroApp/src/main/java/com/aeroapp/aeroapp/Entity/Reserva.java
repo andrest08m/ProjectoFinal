@@ -14,7 +14,6 @@ public class Reserva {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
-
     private int reservation_number;
     private LocalDateTime reservation_day;
     private LocalDateTime reservation_time;

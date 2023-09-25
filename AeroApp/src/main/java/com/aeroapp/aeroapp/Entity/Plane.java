@@ -11,7 +11,6 @@ public class Plane {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
-
     private Long id_plane;
     private String plane_code;
     private String airplane_model;
