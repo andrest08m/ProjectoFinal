@@ -18,9 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class ReservaServiceImp implements ReservaService{
@@ -29,17 +27,55 @@ public class ReservaServiceImp implements ReservaService{
     private ReservaRepository rpository;
 @Autowired
     private VueloRepository vueloRepository;
+@Autowired
+    private ReservaRepository reservaRepository;
 
 
 @Autowired
 private CustomerRepository customerRepository;
 
+    public String createReservationId(){
+        // create a string of uppercase and lowercase characters and numbers
+        String upperAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String lowerAlphabet = "abcdefghijklmnopqrstuvwxyz";
+        String numbers = "0123456789";
+
+        // combine all strings
+        String alphaNumeric = upperAlphabet + lowerAlphabet + numbers;
+
+        // create random string builder
+        StringBuilder sb = new StringBuilder();
+
+        // create an object of Random class
+        Random random = new Random();
+
+        // specify length of random string
+        int length = 10;
+
+        for(int i = 0; i < length; i++) {
+
+            // generate random index number
+            int index = random.nextInt(alphaNumeric.length());
+
+            // get character specified by index
+            // from the string
+            char randomChar = alphaNumeric.charAt(index);
+
+            // append the character to string builder
+            sb.append(randomChar);
+        }
+
+        return sb.toString();
+    }
+
     public ResponseEntity<?> createReserva(ReservaDTO reservaDTO) {
         Reserva reserva = mapFromDTO(reservaDTO);
-        List<Customer> reservaOptional = customerRepository.findAll();
 
-        reserva.setClientes((List<Customer>) reservaOptional);
         List<Vuelo> listOfFlights = vueloRepository.findAll();
+        List<Customer> customerForReservation = new ArrayList<>();
+
+        reserva.setReservation_id(createReservationId());
+
 
         for(Vuelo vuelo : listOfFlights){
             if(reserva.getPlane_code().equals(vuelo.getPlane_id())){
@@ -47,16 +83,12 @@ private CustomerRepository customerRepository;
             }
         }
 
-        Reserva newReserva = rpository.save(reserva);
 
+        rpository.save(reserva);
         return ResponseEntity.status(HttpStatus.CREATED).body("Reservation created.");
     }
 
-    public ReservaDTO createReservaDTO(ReservaDTO reserva) {
-        Reserva reserva1 = mapFromDTO(reserva);
-        Reserva newReserva = rpository.save(reserva1);
-        return mapDTO(newReserva);
-    }
+
 
     public ReservaDTO findById(Long id){
         Optional<Reserva> ReservaPorId = rpository.findById(id);
@@ -110,13 +142,14 @@ private CustomerRepository customerRepository;
         reservaDTO.setReservation_number(reserva.getReservation_number());
         reservaDTO.setReservation_day(reserva.getReservation_day());
         reservaDTO.setReservation_time(reserva.getReservation_time());
-        reservaDTO.setReserva_id(reserva.getReservation_id());
+        reservaDTO.setClass_type(reserva.getClass_type());
         reservaDTO.setPlane_code(reserva.getPlane_code());
 
         return reservaDTO;
     }
     public Reserva mapFromDTO(ReservaDTO reservaDTO) {
         Reserva reserva = new Reserva();
+
         reserva.setReservation_number(reservaDTO.getReservation_number());
         reserva.setReservation_day(reservaDTO.getReservation_day());
         reserva.setReservation_time(reservaDTO.getReservation_time());

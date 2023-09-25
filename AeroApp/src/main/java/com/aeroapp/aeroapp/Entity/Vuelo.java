@@ -62,6 +62,14 @@ public class Vuelo {
         this.airline = airline;
     }
 
+    public Long getId_flight() {
+        return id_flight;
+    }
+
+    public void setId_flight(Long id_flight) {
+        this.id_flight = id_flight;
+    }
+
     public int getAvailableSeats() {
         if(plane != null){
             List<Integer> clientsAboard =

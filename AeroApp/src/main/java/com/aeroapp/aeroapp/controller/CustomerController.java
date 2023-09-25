@@ -15,28 +15,25 @@ import java.util.List;
 public class CustomerController {
 
     @Autowired
-    private  final CustomerServicelmp customerServicelmp;
+    CustomerServicelmp customerServicelmp;
 
     public CustomerController(CustomerServicelmp customerServicelmp) {
         this.customerServicelmp = customerServicelmp;
     }
-
 
     @GetMapping("")
     public List<Customer> getAllBookings() {
         return this.customerServicelmp.getAllBookings();
     }
 
-    @PostMapping()
-    public ResponseEntity createFlight(@RequestBody CustomerDTO customer) {
+    @PostMapping("")
+    public ResponseEntity<?> createCustomer(@RequestBody CustomerDTO customer) {
         try {
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(this.customerServicelmp.createCustomerDTO(customer));
+            return this.customerServicelmp.createCustomerDTO(customer);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }
     }
-
 }
 
 

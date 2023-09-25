@@ -1,30 +1,27 @@
 package com.aeroapp.aeroapp.dto;
 
 public class CustomerDTO {
-    public Long Id_customer;
     public String name;
     public String last_name;
     public long cell_phone;
     public String gender;
+    private String reservation_number;
+    private int customer_reservation;
 
     public CustomerDTO() {
     }
 
-    public CustomerDTO(Long id_customers, String name, String last_name, long cell_phone, String gender) {
-        Id_customer = id_customers;
+    public CustomerDTO( String name, String last_name, long cell_phone, String gender,
+                       int customer_reservation,
+                       String reservation_number) {
         this.name = name;
         this.last_name = last_name;
         this.cell_phone = cell_phone;
         this.gender = gender;
+        this.reservation_number = reservation_number;
+        this.customer_reservation = customer_reservation;
     }
 
-    public Long getId_customer() {
-        return Id_customer;
-    }
-
-    public void setId_customer(Long id_customer) {
-        Id_customer = id_customer;
-    }
 
     public String getName() {
         return name;
@@ -56,5 +53,21 @@ public class CustomerDTO {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getReservation_number() {
+        return reservation_number;
+    }
+
+    public void setReservation_number(String reservation_number) {
+        this.reservation_number = reservation_number;
+    }
+
+    public int getCustomer_reservation() {
+        return customer_reservation;
+    }
+
+    public void setCustomer_reservation(int customer_reservation) {
+        this.customer_reservation = customer_reservation;
     }
 }

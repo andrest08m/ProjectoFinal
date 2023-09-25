@@ -43,12 +43,13 @@ public class VueloController {
             if(vuelo.getPlane_id().equals("") || vuelo.getPlane_id() == null){
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-            this.vueloServiceImp.createVueloDTO(vuelo);
 
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return this.vueloServiceImp.createVueloDTO(vuelo);
+
         }catch(Exception e){
             return ResponseEntity.internalServerError().build();
         }
+
     }
 
     @PutMapping("{id}")
