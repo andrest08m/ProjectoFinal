@@ -32,7 +32,14 @@ public class CustomerServicelmp implements CustomerService{
 
     public ResponseEntity<?> createCustomerDTO(CustomerDTO customerDTO) {
         Customer customer = mapFromDTO(customerDTO);
+        List<Reserva> reservasList = reservaRepository.findAll();
 
+        for(Reserva reserva : reservasList){
+            if(reserva.getReservation_number() == customer.getCustomer_reservation()){
+                customer.setReservation_number(reserva.getReservation_id());
+            }
+
+        }
 
 
         customerRepository.save(customer);

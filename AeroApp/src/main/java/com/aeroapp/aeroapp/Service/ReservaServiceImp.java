@@ -18,10 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class ReservaServiceImp implements ReservaService{
@@ -30,6 +27,8 @@ public class ReservaServiceImp implements ReservaService{
     private ReservaRepository rpository;
 @Autowired
     private VueloRepository vueloRepository;
+@Autowired
+    private ReservaRepository reservaRepository;
 
 
 @Autowired
@@ -71,8 +70,9 @@ private CustomerRepository customerRepository;
 
     public ResponseEntity<?> createReserva(ReservaDTO reservaDTO) {
         Reserva reserva = mapFromDTO(reservaDTO);
-        List<Customer> reservaOptional = customerRepository.findAll();
+
         List<Vuelo> listOfFlights = vueloRepository.findAll();
+        List<Customer> customerForReservation = new ArrayList<>();
 
         reserva.setReservation_id(createReservationId());
 
@@ -83,21 +83,12 @@ private CustomerRepository customerRepository;
             }
         }
 
-        for(Customer customer : reservaOptional) {
-            if(customer.getCustomer_reservation() == reserva.getReservation_number()){
-                customer.setReservation_number(createReservationId());
-            }
-        }
 
-        Reserva newReserva = rpository.save(reserva);
+        rpository.save(reserva);
         return ResponseEntity.status(HttpStatus.CREATED).body("Reservation created.");
     }
 
-    public ReservaDTO createReservaDTO(ReservaDTO reserva) {
-        Reserva reserva1 = mapFromDTO(reserva);
-        Reserva newReserva = rpository.save(reserva1);
-        return mapDTO(newReserva);
-    }
+
 
     public ReservaDTO findById(Long id){
         Optional<Reserva> ReservaPorId = rpository.findById(id);
