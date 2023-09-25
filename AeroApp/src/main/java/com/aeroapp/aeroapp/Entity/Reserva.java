@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "bookings")
@@ -49,7 +48,7 @@ public class Reserva {
         this.clientes = clientes;
     }
 
-    public byte getReservaDisponible() {
+    public long getReservaDisponible() {
         return reserva_disponible;
     }
 

@@ -2,6 +2,7 @@ package com.aeroapp.aeroapp.Service;
 
 import com.aeroapp.aeroapp.Entity.Customer;
 
+import com.aeroapp.aeroapp.Entity.Reserva;
 import com.aeroapp.aeroapp.Repository.CustomerRepository;
 import com.aeroapp.aeroapp.Repository.ReservaRepository;
 import com.aeroapp.aeroapp.dto.CustomerDTO;
@@ -9,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 
@@ -58,6 +62,26 @@ public class CustomerServicelmp implements CustomerService{
 
         return sb.toString();
     }
+    public ResponseEntity<?> createcustomerDTO(CustomerDTO customerDTO) {
+        Customer customer = mapFromDTO(customerDTO);
+        ArrayList<Reserva> reservas = new ArrayList<>(reservaRepository.findAll());
+
+        for (Reserva reserva : reservas) {
+            if (reserva.getReservation_id().equals(customer.getCustomer_reservation())) {
+                Optional<Reserva> reservaOptional = reservaRepository.findById((long) reserva.getReservaDisponible());
+                if (reservaOptional.isPresent()) {
+                    Reserva reservaEncontrada = reservaOptional.get();
+                    customer.setReserva(reservaEncontrada);
+                } else {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Reserva not found.");
+                }
+            }
+        }
+        return ResponseEntity.ok(customer);
+    }
+
+
+
 
     public CustomerDTO createCustomerDTO(CustomerDTO customerDTO) {
         Customer customer = mapFromDTO(customerDTO);
