@@ -51,11 +51,11 @@ public class VueloServiceImp implements VueloService{
     }
 
 
-    public VueloDTO findById(Long id){
+    public ResponseEntity<?> findById(Long id){
         Optional<Vuelo> vueloPorId = repository.findById(id);
 
         if(vueloPorId.isPresent()){
-            return mapDTO(vueloPorId.get());
+            return ResponseEntity.status(200).body(vueloPorId.get());
         }else{
             throw new RuntimeException();
         }

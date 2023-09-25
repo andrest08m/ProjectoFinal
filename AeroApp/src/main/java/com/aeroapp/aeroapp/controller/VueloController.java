@@ -33,7 +33,7 @@ public class VueloController {
     }
 
     @GetMapping("{id}")
-    public VueloDTO getFlightById(@PathVariable(name = "id") Long id){
+    public ResponseEntity<?> getFlightById(@PathVariable(name = "id") Long id){
         return vueloServiceImp.findById(id);
     }
 
@@ -61,9 +61,7 @@ public class VueloController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteFlight(@PathVariable(name = "id") Long id){
-        if(vueloServiceImp.findById(id).getPlane_id().equals("")){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+
         return this.vueloServiceImp.deleteFlight(id);
     }
 }
