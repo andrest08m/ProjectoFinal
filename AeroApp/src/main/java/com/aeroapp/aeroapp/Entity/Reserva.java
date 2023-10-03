@@ -14,7 +14,7 @@ public class Reserva {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
-    private int reservation_number;
+    private Long reservation_number;
     private LocalDateTime reservation_day;
     private LocalDateTime reservation_time;
     private String class_type;
@@ -32,7 +32,7 @@ public class Reserva {
     public Reserva() {
     }
 
-    public Reserva(int reservation_number, LocalDateTime reservation_day, LocalDateTime reservation_time,
+    public Reserva(Long reservation_number, LocalDateTime reservation_day, LocalDateTime reservation_time,
                    String class_type, String reservation_id, byte reserva_disponible,String plane_code,
                    Vuelo flight_code,
                    List<Customer> clientes) {
@@ -55,11 +55,11 @@ public class Reserva {
         this.reserva_disponible = reservaDisponible;
     }
 
-    public int getReservation_number() {
+    public Long getReservation_number() {
         return reservation_number;
     }
 
-    public void setReservation_number(int reservation_number) {
+    public void setReservation_number(Long reservation_number) {
         this.reservation_number = reservation_number;
     }
 

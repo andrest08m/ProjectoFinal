@@ -8,7 +8,6 @@ import java.util.Set;
 
 public class ReservaDTO {
 
-    private int reservation_number;
     private LocalDateTime reservation_day;
     private LocalDateTime reservation_time;
     private String class_type;
@@ -22,11 +21,10 @@ public class ReservaDTO {
     public ReservaDTO() {
     }
 
-    public ReservaDTO(int reservation_number, LocalDateTime reservation_day, LocalDateTime reservation_time,
+    public ReservaDTO(Long reservation_number, LocalDateTime reservation_day, LocalDateTime reservation_time,
                       String class_type, Vuelo flight_code, String reserva_id, byte reserva_disponible,
                       String plane_code,
                       Set<Customer> clientes) {
-        this.reservation_number = reservation_number;
         this.reservation_day = reservation_day;
         this.reservation_time = reservation_time;
         this.class_type = class_type;
@@ -36,13 +34,7 @@ public class ReservaDTO {
         this.clientes = clientes;
     }
 
-    public int getReservation_number() {
-        return reservation_number;
-    }
 
-    public void setReservation_number(int reservation_number) {
-        this.reservation_number = reservation_number;
-    }
 
     public LocalDateTime getReservation_day() {
         return reservation_day;

@@ -38,7 +38,6 @@ public class CustomerServicelmp implements CustomerService{
             if(reserva.getReservation_number() == customer.getCustomer_reservation()){
                 customer.setReservation_number(reserva.getReservation_id());
             }
-
         }
 
 

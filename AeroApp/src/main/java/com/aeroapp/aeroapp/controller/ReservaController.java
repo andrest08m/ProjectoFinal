@@ -35,12 +35,15 @@ public class ReservaController {
 
     @GetMapping("")
     public List<Reserva> getAllBookings() {
+        reservaServiceImp.updatingCustomerList();
         return this.reservaServiceImp.getAllBookings();
     }
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ReservaDTO getFlightById(@PathVariable(name = "id") Long id){
-        return reservaServiceImp.findById(id);
+        reservaServiceImp.updatingCustomerList();
+        return this.reservaServiceImp.findById(id);
     }
+
 
     @PostMapping()
     public ResponseEntity createFlight(@RequestBody ReservaDTO reserva) {
