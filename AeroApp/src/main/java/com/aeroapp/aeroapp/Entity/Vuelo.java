@@ -129,6 +129,11 @@ public class Vuelo {
     public void setPlane(Plane plane) {
         this.plane = plane;
     }
+
+    public Plane getPlane() {
+        return plane;
+    }
+
     public Set<Reserva> getCustomer() {
         return reservas;
     }
