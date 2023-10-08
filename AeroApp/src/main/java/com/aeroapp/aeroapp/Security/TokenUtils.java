@@ -1,9 +1,13 @@
 package com.aeroapp.aeroapp.Security;
 
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,4 +36,18 @@ public class TokenUtils {
     }
 
 
+    public static UsernamePasswordAuthenticationToken getAuthentic(String token) {
+        try {
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(ACCESS_TOKEN.getBytes())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+            String reservCode = claims.getSubject();
+
+            return new UsernamePasswordAuthenticationToken(reservCode, null, Collections.emptyList());
+        }catch(JwtException e){
+            return null;
+        }
+    }
 }
