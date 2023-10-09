@@ -19,6 +19,7 @@ public class Customer {
     private String gender;
     private int customer_reservation;
     private String reservation_number;
+    private String reservation_identifier;
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "reserva")
@@ -29,7 +30,8 @@ public class Customer {
     }
 
     public Customer(Long customer_id, String name, String last_name, Long cell_phone,
-                    String gender, int customer_reservation, String reservation_number, Reserva reserva) {
+                    String gender, int customer_reservation, String reservation_number,String reservation_identifier
+                    ,Reserva reserva) {
         this.customer_id = customer_id;
         this.name = name;
         this.last_name = last_name;
@@ -103,5 +105,13 @@ public class Customer {
 
     public void setReservation_number(String reservation_number) {
         this.reservation_number = reservation_number;
+    }
+
+    public String getReservation_identifier() {
+        return reservation_identifier;
+    }
+
+    public void setReservation_identifier(String reservation_identifier) {
+        this.reservation_identifier = reservation_identifier;
     }
 }
