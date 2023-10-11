@@ -20,6 +20,8 @@ public class Customer {
     private int customer_reservation;
     private String reservation_number;
     private String reservation_identifier;
+
+    private String Password;
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "reserva")
@@ -113,5 +115,12 @@ public class Customer {
 
     public void setReservation_identifier(String reservation_identifier) {
         this.reservation_identifier = reservation_identifier;
+    }
+
+    public String getPassword() {
+        {
+
+            return Password;
+        }
     }
 }
