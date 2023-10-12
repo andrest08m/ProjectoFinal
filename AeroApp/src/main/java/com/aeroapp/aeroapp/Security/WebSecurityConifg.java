@@ -11,6 +11,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -19,40 +20,40 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConifg {
 
     private final  UserDetailsService userDetailsService;
-    private JWTAuthorizationFilter jwtAuthorizationFilter;
 
-    @Autowired
-    public void WebSecurityConfig(JWTAuthorizationFilter jwtAuthorizationFilter) {
-        this.jwtAuthorizationFilter = jwtAuthorizationFilter;
-    }
+    private org.springframework.security.web.AuthenticationEntryPoint AuthenticationEntryPoint;
+
+
 
     public WebSecurityConifg(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
+
+
     @Bean
-    SecurityFilterChain filterChain (HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
-       JWTAutenticationFilter jwtAutenticationFilter = new JWTAutenticationFilter();
-       jwtAutenticationFilter.setAuthenticationManager(authenticationManager);
-       jwtAutenticationFilter.setFilterProcessesUrl("/login");
-
-
+    SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
+        JWTAutenticationFilter jwtAuthenticationFilter = new JWTAutenticationFilter();
+        jwtAuthenticationFilter.setAuthenticationManager(authenticationManager);
+        jwtAuthenticationFilter.setFilterProcessesUrl("/login");
 
         return http
                 .csrf().disable()
-                .authorizeHttpRequests()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .httpBasic()
+                .exceptionHandling()
+                .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(jwtAutenticationFilter)
-                .addFilterBefore(jwtAutenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .authorizeRequests()
+                .antMatchers("/login").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .addFilter(jwtAuthenticationFilter)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
+
 //    @Bean
 //    UserDetailsService userDetailsService(){
 //        InMemoryUserDetailsManager Manager = new InMemoryUserDetailsManager();
@@ -66,16 +67,16 @@ public class WebSecurityConifg {
 
     @Bean
     AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder) throws Exception {
-       return http.getSharedObject(AuthenticationManagerBuilder.class)
-               .userDetailsService(userDetailsService)
-               .passwordEncoder(passwordEncoder)
-               .and()
-               .build();
+        return http.getSharedObject(AuthenticationManagerBuilder.class)
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder)
+                .and()
+                .build();
 
     }
 
 
-    
+
     @Bean
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -83,8 +84,6 @@ public class WebSecurityConifg {
 
     }
 
-    public static void main(String[] args) {
-        System.out.printf("pass: " + new BCryptPasswordEncoder().encode("andres"));
-    }
-    
+
+
 }

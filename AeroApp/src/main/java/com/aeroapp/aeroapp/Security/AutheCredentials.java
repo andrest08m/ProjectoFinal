@@ -25,6 +25,3 @@ public class AutheCredentials {
         this.password = password;
     }
 }
-
-
-
