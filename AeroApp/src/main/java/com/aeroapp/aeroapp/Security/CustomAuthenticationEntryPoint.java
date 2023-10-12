@@ -15,6 +15,6 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
         // Personaliza aquí cómo manejar las respuestas de autenticación no válida
         // Por ejemplo, puedes devolver un mensaje de error o redirigir a una página de inicio de sesión.
-        response.sendError(HttpServletResponse.SC_ACCEPTED, "Acceso no autorizado");
+        response.sendError(HttpServletResponse.SC_OK, "Acceso autorizado ");
     }
 }
