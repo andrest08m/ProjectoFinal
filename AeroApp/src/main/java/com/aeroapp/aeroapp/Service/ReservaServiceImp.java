@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class ReservaServiceImp implements ReservaService{
+public class ReservaServiceImp {
 
 @Autowired
     private ReservaRepository rpository;

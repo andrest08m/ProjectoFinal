@@ -12,7 +12,7 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
-    private Long customer_id;
+    private int customer_id;
     private String name;
     private String last_name;
     private Long cell_phone;
@@ -31,7 +31,7 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(Long customer_id, String name, String last_name, Long cell_phone,
+    public Customer(int customer_id, String name, String last_name, Long cell_phone,
                     String gender, int customer_reservation, String reservation_number,String reservation_identifier
                     ,Reserva reserva) {
         this.customer_id = customer_id;
@@ -44,11 +44,11 @@ public class Customer {
         this.reserva = reserva;
     }
 
-    public Long getCustomer_id() {
+    public int getCustomer_id() {
         return customer_id;
     }
 
-    public void setCustomer_id(Long customer_id) {
+    public void setCustomer_id(int customer_id) {
         this.customer_id = customer_id;
     }
 
