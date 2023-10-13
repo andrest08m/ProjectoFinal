@@ -1,17 +1,17 @@
 package com.aeroapp.aeroapp.dto;
 
-import com.aeroapp.aeroapp.Entity.Vuelo;
+import com.aeroapp.aeroapp.Entity.Flight;
 
 public class PlaneDTO {
     private String plane_code;
     private String airplane_model;
     private int available_seats;
-    private Vuelo flight;
+    private Flight flight;
 
     public PlaneDTO() {
     }
 
-    public PlaneDTO(String plane_code, String airplane_model, int available_seats, Vuelo flight) {
+    public PlaneDTO(String plane_code, String airplane_model, int available_seats, Flight flight) {
         this.plane_code = plane_code;
         this.airplane_model = airplane_model;
         this.available_seats = available_seats;
@@ -42,11 +42,11 @@ public class PlaneDTO {
         this.available_seats = available_seats;
     }
 
-    public Vuelo getFlight() {
+    public Flight getFlight() {
         return flight;
     }
 
-    public void setFlight(Vuelo flight) {
+    public void setFlight(Flight flight) {
         this.flight = flight;
     }
 }

@@ -2,10 +2,10 @@ package com.aeroapp.aeroapp.controller;
 
 
 
-import com.aeroapp.aeroapp.Entity.Vuelo;
+import com.aeroapp.aeroapp.Entity.Flight;
 import com.aeroapp.aeroapp.Repository.PlaneRepository;
-import com.aeroapp.aeroapp.Service.VueloServiceImp;
-import com.aeroapp.aeroapp.dto.VueloDTO;
+import com.aeroapp.aeroapp.Service.FlightsServiceImp;
+import com.aeroapp.aeroapp.dto.FlightDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,35 +16,35 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/flights")
-public class VueloController {
+public class FlightController {
 
-    VueloServiceImp vueloServiceImp;
+    FlightsServiceImp flightsServiceImp;
     PlaneRepository planeRepository;
     @Autowired
-    public VueloController(VueloServiceImp vueloServiceImp, PlaneRepository planeRepository){
-        this.vueloServiceImp = vueloServiceImp;
+    public FlightController(FlightsServiceImp flightsServiceImp, PlaneRepository planeRepository){
+        this.flightsServiceImp = flightsServiceImp;
         this.planeRepository = planeRepository;
     }
 
 
     @GetMapping()
-    public List<Vuelo> getAllFlights(){
-        return this.vueloServiceImp.getAllFlights();
+    public List<Flight> getAllFlights(){
+        return this.flightsServiceImp.getAllFlights();
     }
 
     @GetMapping("{id}")
     public ResponseEntity<?> getFlightById(@PathVariable(name = "id") Long id){
-        return vueloServiceImp.findById(id);
+        return flightsServiceImp.findById(id);
     }
 
     @PostMapping()
-    public ResponseEntity<?> createFlight(@RequestBody VueloDTO vuelo){
+    public ResponseEntity<String> createFlight(@RequestBody FlightDTO vuelo){
         try{
             if(vuelo.getPlane_id().equals("") || vuelo.getPlane_id() == null){
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
 
-            return this.vueloServiceImp.createVueloDTO(vuelo);
+            return this.flightsServiceImp.createVueloDTO(vuelo);
 
         }catch(Exception e){
             return ResponseEntity.internalServerError().build();
@@ -53,15 +53,15 @@ public class VueloController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<?> updateFlight(@RequestBody VueloDTO vueloDTO,
+    public ResponseEntity<?> updateFlight(@RequestBody FlightDTO flightDTO,
                                           @PathVariable(name = "id") Long id){
 
-        return vueloServiceImp.updateFlight(vueloDTO, id);
+        return flightsServiceImp.updateFlight(flightDTO, id);
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteFlight(@PathVariable(name = "id") Long id){
 
-        return this.vueloServiceImp.deleteFlight(id);
+        return this.flightsServiceImp.deleteFlight(id);
     }
 }

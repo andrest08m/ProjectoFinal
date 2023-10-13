@@ -11,9 +11,8 @@ public class CustomerDTO {
     public CustomerDTO() {
     }
 
-    public CustomerDTO( String name, String last_name, long cell_phone, String gender,
-                       int customer_reservation,
-                       String reservation_number) {
+    public CustomerDTO(String name, String last_name, long cell_phone,
+                       String gender, String reservation_number, int customer_reservation) {
         this.name = name;
         this.last_name = last_name;
         this.cell_phone = cell_phone;
@@ -21,7 +20,6 @@ public class CustomerDTO {
         this.reservation_number = reservation_number;
         this.customer_reservation = customer_reservation;
     }
-
 
     public String getName() {
         return name;

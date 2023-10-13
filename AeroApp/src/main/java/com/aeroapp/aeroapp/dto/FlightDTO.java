@@ -2,39 +2,39 @@ package com.aeroapp.aeroapp.dto;
 
 
 import com.aeroapp.aeroapp.Entity.Plane;
-import com.aeroapp.aeroapp.Entity.Reserva;
+import com.aeroapp.aeroapp.Entity.Reservation;
 import com.aeroapp.aeroapp.utils.Airline;
 import com.aeroapp.aeroapp.utils.FlightType;
 
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 
-public class VueloDTO {
+public class FlightDTO {
 
     private String code;
     private String origin;
     private String destiny;
-    private LocalDateTime departureDate;
-    private LocalDateTime arrivalDate;
+    private Date departureDate;
+    private Date arrivalDate;
     private double price;
     private String plane_id;
     private int availableSeats;
     private FlightType type;
     private Airline airline;
     private Plane plane;
-    private Set<Reserva> clientes;
+    private Set<Reservation> clientes;
 
 
-    public VueloDTO() {
+    public FlightDTO() {
     }
 
-    public VueloDTO(String code, String origin, String destiny, LocalDateTime departureDate,
-                    LocalDateTime arrivalDate, double price, String plane_id,
-                    int availableSeats, FlightType type, Airline airline, Plane plane, Set<Reserva> clientes) {
+    public FlightDTO(String code, String origin, String destiny, Date departureDate,
+                     Date arrivalDate, double price, String plane_id,
+                     int availableSeats, FlightType type, Airline airline, Plane plane, Set<Reservation> clientes) {
         this.code = code;
         this.origin = origin;
         this.destiny = destiny;
@@ -87,19 +87,19 @@ public class VueloDTO {
         this.destiny = destiny;
     }
 
-    public LocalDateTime getDepartureDate() {
+    public Date getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(LocalDateTime departureDate) {
+    public void setDepartureDate(Date departureDate) {
         this.departureDate = departureDate;
     }
 
-    public LocalDateTime getArrivalDate() {
+    public Date getArrivalDate() {
         return arrivalDate;
     }
 
-    public void setArrivalDate(LocalDateTime arrivalDate) {
+    public void setArrivalDate(Date arrivalDate) {
         this.arrivalDate = arrivalDate;
     }
 
@@ -143,11 +143,11 @@ public class VueloDTO {
         this.plane = plane;
     }
 
-    public Set<Reserva> getClientes() {
+    public Set<Reservation> getClientes() {
         return clientes;
     }
 
-    public void setClientes(Set<Reserva> clientes) {
+    public void setClientes(Set<Reservation> clientes) {
         this.clientes = clientes;
     }
 }

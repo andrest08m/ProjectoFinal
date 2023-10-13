@@ -1,30 +1,30 @@
 package com.aeroapp.aeroapp.dto;
 
 import com.aeroapp.aeroapp.Entity.Customer;
-import com.aeroapp.aeroapp.Entity.Vuelo;
+import com.aeroapp.aeroapp.Entity.Flight;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
-public class ReservaDTO {
+public class ReservationDTO {
 
     private LocalDateTime reservation_day;
     private LocalDateTime reservation_time;
     private String class_type;
-    private Vuelo flight_code;
+    private Flight flight_code;
     private String reserva_id;
     private byte reserva_disponible;
     private Set<Customer> clientes;
     private String plane_code;
 
 
-    public ReservaDTO() {
+    public ReservationDTO() {
     }
 
-    public ReservaDTO(Long reservation_number, LocalDateTime reservation_day, LocalDateTime reservation_time,
-                      String class_type, Vuelo flight_code, String reserva_id, byte reserva_disponible,
-                      String plane_code,
-                      Set<Customer> clientes) {
+    public ReservationDTO(Long reservation_number, LocalDateTime reservation_day, LocalDateTime reservation_time,
+                          String class_type, Flight flight_code, String reserva_id, byte reserva_disponible,
+                          String plane_code,
+                          Set<Customer> clientes) {
         this.reservation_day = reservation_day;
         this.reservation_time = reservation_time;
         this.class_type = class_type;
@@ -60,11 +60,11 @@ public class ReservaDTO {
         this.class_type = class_type;
     }
 
-    public Vuelo getFlight_code() {
+    public Flight getFlight_code() {
         return flight_code;
     }
 
-    public void setFlight_code(Vuelo flight_code) {
+    public void setFlight_code(Flight flight_code) {
         this.flight_code = flight_code;
     }
 

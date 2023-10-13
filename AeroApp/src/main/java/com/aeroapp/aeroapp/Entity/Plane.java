@@ -17,12 +17,12 @@ public class Plane {
     private int available_seats;
     @OneToOne(mappedBy = "plane")
     @JsonIgnore
-    private Vuelo flight;
+    private Flight flight;
 
     public Plane() {
     }
 
-    public Plane(Long id_plane, String plane_code, String airplane_model, int availableSeats, Vuelo flight) {
+    public Plane(Long id_plane, String plane_code, String airplane_model, int availableSeats, Flight flight) {
         this.id_plane = id_plane;
         this.plane_code = plane_code;
         this.airplane_model = airplane_model;
@@ -62,11 +62,11 @@ public class Plane {
         this.available_seats = available_seats;
     }
 
-    public Vuelo getFlight() {
+    public Flight getFlight() {
         return flight;
     }
 
-    public void setFlight(Vuelo flight) {
+    public void setFlight(Flight flight) {
         this.flight = flight;
     }
 }

@@ -1,10 +1,8 @@
 package com.aeroapp.aeroapp.Service;
 
 import com.aeroapp.aeroapp.Entity.Plane;
-import com.aeroapp.aeroapp.Entity.Reserva;
 import com.aeroapp.aeroapp.Repository.PlaneRepository;
 import com.aeroapp.aeroapp.dto.PlaneDTO;
-import com.aeroapp.aeroapp.dto.ReservaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

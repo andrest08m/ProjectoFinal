@@ -2,7 +2,7 @@ package com.aeroapp.aeroapp.Service;
 
 import com.aeroapp.aeroapp.Entity.Customer;
 
-import com.aeroapp.aeroapp.Entity.Reserva;
+import com.aeroapp.aeroapp.Entity.Reservation;
 import com.aeroapp.aeroapp.Repository.CustomerRepository;
 import com.aeroapp.aeroapp.Repository.ReservaRepository;
 import com.aeroapp.aeroapp.dto.CustomerDTO;
@@ -11,14 +11,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 
 @Service
-public class CustomerServicelmp implements CustomerService{
+public class CustomerServicelmp {
 
     @Autowired
     CustomerRepository customerRepository;
@@ -30,21 +28,36 @@ public class CustomerServicelmp implements CustomerService{
     }
 
 
-    public ResponseEntity<?> createCustomerDTO(CustomerDTO customerDTO) {
+    public ResponseEntity<String> createCustomerDTO(CustomerDTO customerDTO) {
         Customer customer = mapFromDTO(customerDTO);
-        List<Reserva> reservasList = reservaRepository.findAll();
+        List<Reservation> reservasList = reservaRepository.findAll();
 
-        for(Reserva reserva : reservasList){
-            if(reserva.getReservation_number() == customer.getCustomer_reservation()){
-                customer.setReservation_number(reserva.getReservation_id());
+        for(Reservation reservation : reservasList){
+            if(reservation.getReservation_number() == customer.getCustomer_reservation()){
+                customer.setReservation_number(reservation.getReservation_id());
             }
         }
 
 
         customerRepository.save(customer);
 
-        return ResponseEntity.status(201).body(customer);
+        return ResponseEntity.status(201).body("Customer created");
     }
+
+    public CustomerDTO getById(int id){
+
+        Optional<Customer> customer= customerRepository.findById(id);
+
+        return customer.map(this::mapDTO).orElse(null);
+    }
+
+    public ResponseEntity<CustomerDTO> deleteCustomer(int id){
+        Optional<Customer> custom = this.customerRepository.findById(id);
+        this.customerRepository.delete(custom.get());
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 
     public CustomerDTO mapDTO(Customer customer){
         CustomerDTO customerDTO = new CustomerDTO();
@@ -57,6 +70,7 @@ public class CustomerServicelmp implements CustomerService{
 
         return customerDTO;
     }
+
 
 
     public Customer mapFromDTO(CustomerDTO customerDTO) {

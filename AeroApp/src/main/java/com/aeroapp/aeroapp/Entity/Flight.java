@@ -7,7 +7,7 @@ import com.aeroapp.aeroapp.utils.Airline;
 import com.aeroapp.aeroapp.utils.FlightType;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name="flight")
-public class Vuelo {
+public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
@@ -23,8 +23,8 @@ public class Vuelo {
     private String code;
     private String origin;
     private String destiny;
-    private LocalDateTime departureDate;
-    private LocalDateTime arrivalDate;
+    private Date departureDate;
+    private Date arrivalDate;
     private String plane_id;
     private int available_seats;
     private double price;
@@ -32,7 +32,7 @@ public class Vuelo {
     @JoinColumn(name = "flight")
     private Plane plane;
     @OneToMany(mappedBy = "flight_code")
-    private Set<Reserva> reservas;
+    private Set<Reservation> reservations;
 
     @Enumerated(EnumType.STRING)
     private FlightType type;
@@ -40,13 +40,13 @@ public class Vuelo {
     private Airline airline;
 
 
-    public Vuelo() {
+    public Flight() {
     }
 
-    public Vuelo(Long id_flight, String code, String origin, String destiny,
-                 LocalDateTime departureDate, LocalDateTime arrivalDate, String plane_id,
-                 int available_seats, double price, Plane plane, Set<Reserva> reservas,
-                 FlightType type, Airline airline) {
+    public Flight(Long id_flight, String code, String origin, String destiny,
+                  Date departureDate, Date arrivalDate, String plane_id,
+                  int available_seats, double price, Plane plane, Set<Reservation> reservations,
+                  FlightType type, Airline airline) {
         this.id_flight = id_flight;
         this.code = code;
         this.origin = origin;
@@ -57,7 +57,7 @@ public class Vuelo {
         this.available_seats = available_seats;
         this.price = price;
         this.plane = plane;
-        this.reservas = reservas;
+        this.reservations = reservations;
         this.type = type;
         this.airline = airline;
     }
@@ -101,16 +101,16 @@ public class Vuelo {
     public void setDestiny(String destiny) {
         this.destiny = destiny;
     }
-    public LocalDateTime getDepartureDate() {
+    public Date getDepartureDate() {
         return departureDate;
     }
-    public void setDepartureDate(LocalDateTime departureDate) {
+    public void setDepartureDate(Date departureDate) {
         this.departureDate = departureDate;
     }
-    public LocalDateTime getArrivalDate() {
+    public Date getArrivalDate() {
         return arrivalDate;
     }
-    public void setArrivalDate(LocalDateTime arrivalDate) {
+    public void setArrivalDate(Date arrivalDate) {
         this.arrivalDate = arrivalDate;
     }
     public String getPlane_id() {
@@ -134,8 +134,8 @@ public class Vuelo {
         return plane;
     }
 
-    public Set<Reserva> getCustomer() {
-        return reservas;
+    public Set<Reservation> getCustomer() {
+        return reservations;
     }
 
     public FlightType getType() {
