@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "bookings")
-public class Reserva {
+public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
@@ -25,17 +25,17 @@ public class Reserva {
     @ManyToOne
     @JoinColumn(name = "flight_code")
     @JsonIgnore
-    private Vuelo flight_code;
-    @OneToMany(mappedBy = "reserva")
+    private Flight flight_code;
+    @OneToMany(mappedBy = "reservation")
     private List<Customer> clientes;
 
-    public Reserva() {
+    public Reservation() {
     }
 
-    public Reserva(Long reservation_number, LocalDateTime reservation_day, LocalDateTime reservation_time,
-                   String class_type, String reservation_id, byte reserva_disponible,String plane_code,
-                   Vuelo flight_code,
-                   List<Customer> clientes) {
+    public Reservation(Long reservation_number, LocalDateTime reservation_day, LocalDateTime reservation_time,
+                       String class_type, String reservation_id, byte reserva_disponible, String plane_code,
+                       Flight flight_code,
+                       List<Customer> clientes) {
         this.reservation_number = reservation_number;
         this.reservation_day = reservation_day;
         this.reservation_time = reservation_time;
@@ -102,11 +102,11 @@ public class Reserva {
         this.clientes = clientes;
     }
 
-    public Vuelo getFlight_code() {
+    public Flight getFlight_code() {
         return flight_code;
     }
 
-    public void setFlight_code(Vuelo flight_code) {
+    public void setFlight_code(Flight flight_code) {
         this.flight_code = flight_code;
     }
 

@@ -40,7 +40,7 @@ public class CustomerController {
     }
 
     @DeleteMapping("/{id}")
-    public CustomerDTO deleteCustomer(@PathVariable(name = "id") int id){
+    public ResponseEntity<CustomerDTO> deleteCustomer(@PathVariable(name = "id") int id){
         return customerServicelmp.deleteCustomer(id);
     }
 }

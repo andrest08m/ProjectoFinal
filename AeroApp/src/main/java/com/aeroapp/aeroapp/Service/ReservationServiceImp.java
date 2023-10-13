@@ -2,13 +2,13 @@ package com.aeroapp.aeroapp.Service;
 
 
 import com.aeroapp.aeroapp.Entity.Customer;
-import com.aeroapp.aeroapp.Entity.Reserva;
-import com.aeroapp.aeroapp.Entity.Vuelo;
+import com.aeroapp.aeroapp.Entity.Reservation;
+import com.aeroapp.aeroapp.Entity.Flight;
 import com.aeroapp.aeroapp.Repository.CustomerRepository;
 import com.aeroapp.aeroapp.Repository.ReservaRepository;
 
 import com.aeroapp.aeroapp.Repository.VueloRepository;
-import com.aeroapp.aeroapp.dto.ReservaDTO;
+import com.aeroapp.aeroapp.dto.ReservationDTO;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class ReservaServiceImp {
+public class ReservationServiceImp {
 
 @Autowired
     private ReservaRepository rpository;
@@ -70,11 +70,11 @@ private CustomerRepository customerRepository;
     }
 
     public void updatingCustomerList(){
-        List<Reserva> listOfBookings = rpository.findAll();
+        List<Reservation> listOfBookings = rpository.findAll();
         List<Customer> listOfCustomers = customerRepository.findAll();
         List<Customer> customersPerBooking = new ArrayList<>();
 
-        for(Reserva booking : listOfBookings){
+        for(Reservation booking : listOfBookings){
             for(Customer customer : listOfCustomers){
                 if(customer.getCustomer_reservation() == booking.getReservation_number()){
                     customersPerBooking.add(customer);
@@ -87,12 +87,12 @@ private CustomerRepository customerRepository;
 
 //                    METHODS FOR CONTROLLER
 
-    public List<Reserva> getAllBookings() {
+    public List<Reservation> getAllBookings() {
         return rpository.findAll();
     }
 
-    public ReservaDTO findById(Long id){
-        Optional<Reserva> ReservaPorId = rpository.findById(id);
+    public ReservationDTO findById(Long id){
+        Optional<Reservation> ReservaPorId = rpository.findById(id);
 
         if(ReservaPorId.isPresent()){
             return mapDTO(ReservaPorId.get());
@@ -101,47 +101,47 @@ private CustomerRepository customerRepository;
         }
     }
 
-    public ResponseEntity<?> createReserva(ReservaDTO reservaDTO) {
-        Reserva reserva = mapFromDTO(reservaDTO);
+    public ResponseEntity<String> createReserva(ReservationDTO reservationDTO) {
+        Reservation reservation = mapFromDTO(reservationDTO);
 
-        List<Vuelo> listOfFlights = vueloRepository.findAll();
+        List<Flight> listOfFlights = vueloRepository.findAll();
 
-        reserva.setReservation_id(createReservationId());
+        reservation.setReservation_id(createReservationId());
 
 
-        for(Vuelo vuelo : listOfFlights){
-            if(reserva.getPlane_code().equals(vuelo.getPlane().getPlane_code())){
-                reserva.setFlight_code(vuelo);
+        for(Flight flight : listOfFlights){
+            if(reservation.getPlane_code().equals(flight.getPlane().getPlane_code())){
+                reservation.setFlight_code(flight);
             }
         }
 
 
-        rpository.save(reserva);
+        rpository.save(reservation);
         return ResponseEntity.status(HttpStatus.CREATED).body("Reservation created.");
     }
 
 
-    public ResponseEntity<?> updateReserva(ReservaDTO reservaDTO, Long id){
-        Optional<Reserva> reserva = rpository.findById(id);
+    public ResponseEntity<String> updateReserva(ReservationDTO reservationDTO, Long id){
+        Optional<Reservation> reserva = rpository.findById(id);
         if(reserva.isEmpty()){
             return ResponseEntity.status(404).body("Not found.");
         }
-        Reserva newInfoReserva = reserva.get();
+        Reservation newInfoReservation = reserva.get();
 
-        newInfoReserva.setReservation_day(reservaDTO.getReservation_day());
-        newInfoReserva.setReservation_time(reservaDTO.getReservation_time());
-        newInfoReserva.setClass_type(reservaDTO.getClass_type());
-        newInfoReserva.setReservation_id(reservaDTO.getReserva_id());
+        newInfoReservation.setReservation_day(reservationDTO.getReservation_day());
+        newInfoReservation.setReservation_time(reservationDTO.getReservation_time());
+        newInfoReservation.setClass_type(reservationDTO.getClass_type());
+        newInfoReservation.setReservation_id(reservationDTO.getReserva_id());
 
 
-        rpository.save(newInfoReserva);
+        rpository.save(newInfoReservation);
         return ResponseEntity.status(200).body("Reservation updated successfully.");
     }
 
 
 
     public ResponseEntity<?> deleteReserva(Long id){
-        Optional<Reserva> reserva = this.rpository.findById(id);
+        Optional<Reservation> reserva = this.rpository.findById(id);
         if(reserva.isEmpty()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Reservation deleted");
         }
@@ -151,25 +151,25 @@ private CustomerRepository customerRepository;
     }
 
 
-    public ReservaDTO mapDTO(Reserva reserva){
-        ReservaDTO reservaDTO = new ReservaDTO();
+    public ReservationDTO mapDTO(Reservation reservation){
+        ReservationDTO reservationDTO = new ReservationDTO();
 
-        reservaDTO.setReservation_day(reserva.getReservation_day());
-        reservaDTO.setReservation_time(reserva.getReservation_time());
-        reservaDTO.setClass_type(reserva.getClass_type());
-        reservaDTO.setPlane_code(reserva.getPlane_code());
+        reservationDTO.setReservation_day(reservation.getReservation_day());
+        reservationDTO.setReservation_time(reservation.getReservation_time());
+        reservationDTO.setClass_type(reservation.getClass_type());
+        reservationDTO.setPlane_code(reservation.getPlane_code());
 
-        return reservaDTO;
+        return reservationDTO;
     }
-    public Reserva mapFromDTO(ReservaDTO reservaDTO) {
-        Reserva reserva = new Reserva();
+    public Reservation mapFromDTO(ReservationDTO reservationDTO) {
+        Reservation reservation = new Reservation();
 
-        reserva.setReservation_day(reservaDTO.getReservation_day());
-        reserva.setReservation_time(reservaDTO.getReservation_time());
-        reserva.setClass_type(reservaDTO.getClass_type());
-        reserva.setPlane_code(reservaDTO.getPlane_code());
+        reservation.setReservation_day(reservationDTO.getReservation_day());
+        reservation.setReservation_time(reservationDTO.getReservation_time());
+        reservation.setClass_type(reservationDTO.getClass_type());
+        reservation.setPlane_code(reservationDTO.getPlane_code());
 
-        return reserva;
+        return reservation;
     }
 }
 

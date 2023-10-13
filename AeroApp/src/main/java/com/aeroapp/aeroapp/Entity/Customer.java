@@ -4,7 +4,6 @@ package com.aeroapp.aeroapp.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "customer")
@@ -24,16 +23,16 @@ public class Customer {
     private String Password;
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "reserva")
-    private Reserva reserva;
+    @JoinColumn(name = "reservation")
+    private Reservation reservation;
 
 
     public Customer() {
     }
 
     public Customer(int customer_id, String name, String last_name, Long cell_phone,
-                    String gender, int customer_reservation, String reservation_number,String reservation_identifier
-                    ,Reserva reserva) {
+                    String gender, int customer_reservation, String reservation_number, String reservation_identifier
+                    , Reservation reservation) {
         this.customer_id = customer_id;
         this.name = name;
         this.last_name = last_name;
@@ -41,7 +40,7 @@ public class Customer {
         this.gender = gender;
         this.customer_reservation = customer_reservation;
         this.reservation_number = reservation_number;
-        this.reserva = reserva;
+        this.reservation = reservation;
     }
 
     public int getCustomer_id() {
@@ -84,12 +83,12 @@ public class Customer {
         this.gender = gender;
     }
 
-    public Reserva getReserva() {
-        return reserva;
+    public Reservation getReservation() {
+        return reservation;
     }
 
-    public void setReserva(Reserva reserva) {
-        this.reserva = reserva;
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
     }
 
 

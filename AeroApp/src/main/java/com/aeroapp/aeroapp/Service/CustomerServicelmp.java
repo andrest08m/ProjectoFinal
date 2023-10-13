@@ -2,11 +2,12 @@ package com.aeroapp.aeroapp.Service;
 
 import com.aeroapp.aeroapp.Entity.Customer;
 
-import com.aeroapp.aeroapp.Entity.Reserva;
+import com.aeroapp.aeroapp.Entity.Reservation;
 import com.aeroapp.aeroapp.Repository.CustomerRepository;
 import com.aeroapp.aeroapp.Repository.ReservaRepository;
 import com.aeroapp.aeroapp.dto.CustomerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +30,11 @@ public class CustomerServicelmp {
 
     public ResponseEntity<String> createCustomerDTO(CustomerDTO customerDTO) {
         Customer customer = mapFromDTO(customerDTO);
-        List<Reserva> reservasList = reservaRepository.findAll();
+        List<Reservation> reservasList = reservaRepository.findAll();
 
-        for(Reserva reserva : reservasList){
-            if(reserva.getReservation_number() == customer.getCustomer_reservation()){
-                customer.setReservation_number(reserva.getReservation_id());
+        for(Reservation reservation : reservasList){
+            if(reservation.getReservation_number() == customer.getCustomer_reservation()){
+                customer.setReservation_number(reservation.getReservation_id());
             }
         }
 
@@ -50,11 +51,11 @@ public class CustomerServicelmp {
         return customer.map(this::mapDTO).orElse(null);
     }
 
-    public CustomerDTO deleteCustomer(int id){
+    public ResponseEntity<CustomerDTO> deleteCustomer(int id){
         Optional<Customer> custom = this.customerRepository.findById(id);
         this.customerRepository.delete(custom.get());
 
-        return mapDTO(custom.get());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 
