@@ -8,6 +8,7 @@ import com.aeroapp.aeroapp.dto.FlightDTO;
 import com.aeroapp.aeroapp.utils.Airline;
 import com.aeroapp.aeroapp.utils.FlightType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,27 +21,32 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@AutoConfigureMockMvc
-@AutoConfigureJson
-@WebAppConfiguration
+@AutoConfigureMockMvc(addFilters = false)
+@ActiveProfiles("test")
 public class FlightServiceTest {
     @Autowired
     MockMvc mockMvc;
     @MockBean
     private FlightsServiceImp flightsServiceImp;
+
 
     @Test
     void getAllFlights() throws Exception {
@@ -48,14 +54,14 @@ public class FlightServiceTest {
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/v1/flights")
-                        .with(SecurityMockMvcRequestPostProcessors.user("admin").password("admin"))
+                        .with(csrf())
+                        .with(SecurityMockMvcRequestPostProcessors.user("admin").password("ad123"))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
     }
 
     @Test
-    @WithUserDetails(value = "Admin")
     void createFlights() throws Exception {
         // Supongamos que tienes un objeto flightDTO válido para la creación
         FlightDTO customerDTO = new FlightDTO();
@@ -85,7 +91,7 @@ public class FlightServiceTest {
                 .thenReturn(ResponseEntity.status(HttpStatus.CREATED).body(""));
 
         mockMvc.perform(MockMvcRequestBuilders.post("/v1/flights")
-                        .with(SecurityMockMvcRequestPostProcessors.httpBasic("admin", "admin"))
+                        .with(SecurityMockMvcRequestPostProcessors.httpBasic("admin", "ad123"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(customerDTO))) // Convierte el objeto CustomerDTO a JSON
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
@@ -109,7 +115,7 @@ public class FlightServiceTest {
         Mockito.when(flightsServiceImp.findById(id)).thenReturn(ResponseEntity.status(200).body(customer));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/v1/flights/{id}", id)
-                        .with(SecurityMockMvcRequestPostProcessors.httpBasic("admin", "admin")))
+                        .with(SecurityMockMvcRequestPostProcessors.httpBasic("admin", "ad123")))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
 
@@ -126,7 +132,7 @@ public class FlightServiceTest {
                 .thenReturn(ResponseEntity.status(HttpStatus.OK).body("Reservation updated successfully."));
 
         mockMvc.perform(MockMvcRequestBuilders.put("/v1/flights/{id}", id)
-                        .with(SecurityMockMvcRequestPostProcessors.httpBasic("admin", "admin"))
+                        .with(SecurityMockMvcRequestPostProcessors.httpBasic("admin", "ad123"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(flightDTO))) // Convierte el objeto ReservaDTO a JSON
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
@@ -141,7 +147,7 @@ public class FlightServiceTest {
         Mockito.doReturn(null).when(flightsServiceImp).deleteFlight(id);
 
         mockMvc.perform(MockMvcRequestBuilders.delete("/v1/flights/{id}", id)
-                        .with(SecurityMockMvcRequestPostProcessors.httpBasic("admin", "admin"))
+                        .with(SecurityMockMvcRequestPostProcessors.httpBasic("admin", "ad123"))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
     }
