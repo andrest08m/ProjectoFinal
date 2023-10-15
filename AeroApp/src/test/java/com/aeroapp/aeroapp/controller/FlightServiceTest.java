@@ -5,7 +5,6 @@ import com.aeroapp.aeroapp.Entity.Reservation;
 import com.aeroapp.aeroapp.Entity.Flight;
 import com.aeroapp.aeroapp.Service.FlightsServiceImp;
 import com.aeroapp.aeroapp.dto.FlightDTO;
-import com.aeroapp.aeroapp.dto.ReservationDTO;
 import com.aeroapp.aeroapp.utils.Airline;
 import com.aeroapp.aeroapp.utils.FlightType;
 import com.fasterxml.jackson.databind.ObjectMapper;
