@@ -17,6 +17,8 @@ public class CustomerController {
     @Autowired
     CustomerServicelmp customerServicelmp;
 
+
+
     public CustomerController(CustomerServicelmp customerServicelmp) {
         this.customerServicelmp = customerServicelmp;
     }
@@ -25,6 +27,7 @@ public class CustomerController {
     public List<Customer> getAllBookings() {
         return this.customerServicelmp.getAllBookings();
     }
+
 
     @PostMapping("")
     public ResponseEntity<String> createCustomer(@RequestBody CustomerDTO customer) {

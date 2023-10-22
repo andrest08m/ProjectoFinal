@@ -37,16 +37,4 @@ public class AuthController {
         return ResponseEntity.ok(authService.register(request));
     }
 
-
-    public AuthService getAuthService() {
-        return authService;
-    }
-
-    public AuthenticationManager getAuthenticationManager() {
-        return authenticationManager;
-    }
-
-    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
-    }
 }

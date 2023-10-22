@@ -17,13 +17,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthService {
 
-
     private final UserClientRepository userClientRepository;
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+    private final PasswordEncoder passwordEncoder;
 
     public AuthResponse register(AuthCredentials request) {
         UserClient user = UserClient.builder()
@@ -31,7 +27,7 @@ public class AuthService {
                 .email(request.getEmail())
                 .roleName(RoleName.ROLE_USER)
                 .authorities(request.getAuthorities())
-                .password(passwordEncoder().encode(request.getPassword()))
+                .password(passwordEncoder.encode(request.getPassword()))
                 .build();
         userClientRepository.save(user);
 
@@ -53,7 +49,7 @@ public class AuthService {
         UserClient user = userClientRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        if (!passwordEncoder().matches(request.getPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new RuntimeException("Contraseña incorrecta");
         }
         // Generar un token JWT y devolverlo en la respuesta
@@ -65,6 +61,5 @@ public class AuthService {
                 .roles(request.getRoles())
                 .build();
     }
-
 
 }
