@@ -16,17 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-
 public class AuthController {
 
     @Autowired
     private final AuthService authService;
 
-    @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .build();
-    }
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -40,16 +34,4 @@ public class AuthController {
         return ResponseEntity.ok(authService.register(request));
     }
 
-
-    public AuthService getAuthService() {
-        return authService;
-    }
-
-    public AuthenticationManager getAuthenticationManager() {
-        return authenticationManager;
-    }
-
-    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
-    }
 }

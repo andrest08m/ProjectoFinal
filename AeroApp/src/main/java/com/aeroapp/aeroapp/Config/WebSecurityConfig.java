@@ -31,10 +31,10 @@ public class WebSecurityConfig {
     private final JwtAuthorizationFilter jwtAuthorizationFilter;
 
     @Bean
-    public SecurityFilterChain filterChain (HttpSecurity httpSecurity,
-                                            AuthenticationManager authManager) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity,
+                                           AuthenticationManager authManager) throws Exception {
 
-        JwtAuthenticationFilter jwtAuthenticationFilter =new JwtAuthenticationFilter();
+        JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter();
 
         jwtAuthenticationFilter.setAuthenticationManager(authManager);
         jwtAuthenticationFilter.setFilterProcessesUrl("/login");
@@ -83,7 +83,7 @@ public class WebSecurityConfig {
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authenticationProvider= new DaoAuthenticationProvider();
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userDetailsService());
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
