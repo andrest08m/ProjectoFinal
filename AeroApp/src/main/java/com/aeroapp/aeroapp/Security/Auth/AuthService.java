@@ -3,6 +3,7 @@ package com.aeroapp.aeroapp.Security.Auth;
 
 
 
+import com.aeroapp.aeroapp.utils.RoleName;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +29,7 @@ public class AuthService {
         UserClient user = UserClient.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())
-                .roleName(request.getRoles())
+                .roleName(RoleName.ROLE_USER)
                 .authorities(request.getAuthorities())
                 .password(passwordEncoder().encode(request.getPassword()))
                 .build();
