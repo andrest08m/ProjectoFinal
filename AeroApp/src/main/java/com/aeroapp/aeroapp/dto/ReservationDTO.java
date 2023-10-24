@@ -3,6 +3,7 @@ package com.aeroapp.aeroapp.dto;
 import com.aeroapp.aeroapp.Entity.Customer;
 import com.aeroapp.aeroapp.Entity.Flight;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 

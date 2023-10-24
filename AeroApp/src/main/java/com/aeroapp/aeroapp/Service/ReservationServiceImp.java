@@ -101,6 +101,17 @@ private CustomerRepository customerRepository;
         }
     }
 
+    public ReservationDTO findByResN(String res_number){
+        List<Reservation> listOfBookings = rpository.findAll();
+
+        for(Reservation res : listOfBookings){
+            if(res_number.equals(res.getReservation_id())){
+                return mapDTO(res);
+            }
+        }
+        return null;
+    }
+
     public ResponseEntity<String> createReserva(ReservationDTO reservationDTO) {
         Reservation reservation = mapFromDTO(reservationDTO);
 

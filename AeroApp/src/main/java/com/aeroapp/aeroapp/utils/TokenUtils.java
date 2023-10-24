@@ -16,7 +16,11 @@ import java.util.Map;
 
 public class TokenUtils {
 
-    private final static String ACCESS_TOKEN_SECRET = "hsdafhashdfaskjfdlsahdf554a64as54dfs45adf6a4sfd5a4sdf564asdf654as6f45asd5f46asfs4aa64ahsadfsfds";
+    private final static String ACCESS_TOKEN_SECRET = "0a5954de627cfce3adf55" +
+            "573e00a67d48d0a5954de627cfce3adf55573e00a67d48d0a5954de627cfce3adf55573" +
+            "e00a67d48d0a5954de627cfce3adf55573e00a67d48d0a5954de627cfce3adf55573e" +
+            "00a67d48d";
+
     private final static Long ACCESS_TOKEN_VALIDITY_SECONDS =2_592_000L;
 
     public static String createToken (String username, String email) {
