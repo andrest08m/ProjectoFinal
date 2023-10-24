@@ -10,6 +10,10 @@ version = '0.0.1-SNAPSHOT'
 java {
 	sourceCompatibility = "15"
 }
+springBoot {
+	mainClass = 'com/example/ProyectoIntegradorMakaia/ProyectoIntegradorMakaiaApplication.java' // Reemplaza con la ruta de tu clase principal
+}
+
 
 repositories {
 	mavenCentral()
@@ -39,7 +43,9 @@ dependencies {
 
 
 
+
 }
+
 
 tasks.named('test') {
 	useJUnitPlatform()
