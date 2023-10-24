@@ -35,6 +35,10 @@ public class ReservationController {
         reservationServiceImp.updatingCustomerList();
         return this.reservationServiceImp.getAllBookings();
     }
+    @GetMapping("/res-number/{res_num}")
+    public ReservationDTO getReservationByResN(@PathVariable(name ="res_num") String res_num){
+        return reservationServiceImp.findByResN(res_num);
+    }
     @GetMapping("/{id}")
     public ReservationDTO getFlightById(@PathVariable(name = "id") Long id){
         reservationServiceImp.updatingCustomerList();
@@ -42,7 +46,7 @@ public class ReservationController {
     }
 
 
-    @PostMapping()
+    @PostMapping("")
     public ResponseEntity createFlight(@RequestBody ReservationDTO reserva) {
             reservationServiceImp.createReserva(reserva);
 
