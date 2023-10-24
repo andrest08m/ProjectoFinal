@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @PreAuthorize("hasAnyRole('READ', 'WRITE', 'ADMIN')")
 @RestController
 @RequestMapping("/v1/flights")

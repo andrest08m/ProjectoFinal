@@ -5,6 +5,7 @@ package com.aeroapp.aeroapp.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
